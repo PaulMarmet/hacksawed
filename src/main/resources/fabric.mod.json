@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "hacksaw",
+	"version": "${version}",
+	"name": "hacksaw",
+	"description": "I should not be able to mod things. I have too much power now.\nThe only thing stopping me now is my skill issue.",
+	"authors": [
+		"Paul Marmet"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/hacksaw/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.paulm.hacksaw.Hacksaw"
+		],
+		"client": [
+			"net.paulm.hacksaw.HacksawClient"
+		],
+		"fabric-datagen": [
+			"net.paulm.hacksaw.HacksawDataGenerator"
+		]
+	},
+	"mixins": [
+		"hacksaw.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.14.24",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

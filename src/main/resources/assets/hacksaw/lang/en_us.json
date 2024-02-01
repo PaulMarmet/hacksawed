@@ -1,0 +1,12 @@
+{
+  "item.hacksaw.hacksaw": "Hacksaw",
+  "item.hacksaw.dynamite_stick": "Dynamite Stick",
+
+  "itemgroup.hacksaw": "Paul's Hacksaw",
+
+  "effect.hacksaw.bleeding": "Bleeding",
+
+  "death.attack.bleeding": "%s bled to death",
+  "death.attack.bleeding.item": "%s bled to death whilst trying to escape %s and their %s",
+  "death.attack.bleeding.player": "%s bled to death whilst trying to escape %s"
+}
