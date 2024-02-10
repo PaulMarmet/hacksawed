@@ -3,6 +3,7 @@ package net.paulm.hacksaw;
 import net.fabricmc.api.ModInitializer;
 
 import net.paulm.hacksaw.effect.HacksawEffects;
+import net.paulm.hacksaw.entity.HacksawEntities;
 import net.paulm.hacksaw.item.HacksawItemGroups;
 import net.paulm.hacksaw.item.HacksawItems;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class Hacksaw implements ModInitializer {
 		HacksawItemGroups.registerItemGroups();
 		HacksawItems.registerModItems();
 		HacksawEffects.registerModEffects();
+		HacksawEntities.registerModEntities();
 
 		LOGGER.info("Hello Fabric world!");
 	}

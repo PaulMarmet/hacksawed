@@ -14,7 +14,7 @@ public class HacksawItems {
     //And to the dataGen
     //And add the texture
     public static final Item HACKSAW = registerItem("hacksaw", new HacksawItem(1.5f, 1.0f, new Item.Settings()));
-    public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new Item(new FabricItemSettings()));
+    public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new FabricItemSettings()));
 
     //This registers the items, no need to touch
     private static Item registerItem(String name, Item item) {

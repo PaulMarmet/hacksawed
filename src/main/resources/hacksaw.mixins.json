@@ -5,7 +5,9 @@
   "mixins": [
     "CrossbowMixin",
     "FireChargeMixin",
-    "ItemMixin"
+    "ImmuneExplosionMixin",
+    "ItemImmuneExplosionMixin",
+    "ItemUseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

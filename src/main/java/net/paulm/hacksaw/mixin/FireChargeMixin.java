@@ -13,11 +13,14 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FireChargeItem.class)
-public class FireChargeMixin {
+public class FireChargeMixin extends ItemUseMixin{
 
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+
+	@Override
+	protected TypedActionResult<ItemStack> doAThing(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
 		ItemStack itemStack = user.getStackInHand(hand);
 		world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
 		if (!world.isClient) {
