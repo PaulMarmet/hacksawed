@@ -23,6 +23,7 @@ import net.paulm.hacksaw.item.HacksawItems;
 public class DynamiteEntity extends ThrownItemEntity {
 
     private int fuseTime;
+    private boolean onImpact;
 
     public DynamiteEntity(EntityType<DynamiteEntity> entityType, World world) {
         super(entityType, world);
@@ -39,8 +40,16 @@ public class DynamiteEntity extends ThrownItemEntity {
     public void tick() {
         super.tick();
         fuseTime--;
+        if (this.isOnFire()) {
+            fuseTime--;
+            fuseTime--;
+        }
         if (fuseTime <= 0) {
             this.explode();
+        }
+        this.noClip = !this.getWorld().isSpaceEmpty(this, this.getBoundingBox().contract(1.0E-7));
+        if (this.noClip) {
+            this.pushOutOfBlocks(this.getX(), (this.getBoundingBox().minY + this.getBoundingBox().maxY) / 2.0, this.getZ());
         }
     }
 
@@ -65,7 +74,7 @@ public class DynamiteEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if (!this.getWorld().isClient) {
+        if (!this.getWorld().isClient && this.getOnImpact()) {
             this.explode();
             this.discard();
         }
@@ -81,16 +90,23 @@ public class DynamiteEntity extends ThrownItemEntity {
     public void setFuseTime(int newFuseTime) {this.fuseTime = newFuseTime;}
     public int getFuseTime() {return fuseTime;}
 
+    public void setOnImpact(boolean newOnImpact) {this.onImpact = newOnImpact;}
+    public boolean getOnImpact() {return onImpact;}
+
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
         nbt.putInt("Fuse", this.fuseTime);
+        nbt.putBoolean("OnImpact", this.onImpact);
     }
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
         if (nbt.contains("Fuse", NbtElement.NUMBER_TYPE)) {
             this.fuseTime = nbt.getInt("Fuse");
+        }
+        if (nbt.contains("OnImpact", NbtElement.BYTE_TYPE)) {
+            this.onImpact = nbt.getBoolean("OnImpact");
         }
     }
 

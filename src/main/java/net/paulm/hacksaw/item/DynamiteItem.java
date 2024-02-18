@@ -63,6 +63,7 @@ public class DynamiteItem extends Item {
             dynamiteEntity.setItem(itemStack);
             dynamiteEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 1.0f);
             dynamiteEntity.setFuseTime(getFuse(itemStack));
+            dynamiteEntity.setOnImpact(false);
             world.spawnEntity(dynamiteEntity);
         }
         user.incrementStat(Stats.USED.getOrCreateStat(this));
@@ -82,7 +83,7 @@ public class DynamiteItem extends Item {
     public int getFuse(ItemStack stack) {
         if (stack.getNbt() == null || !stack.getNbt().contains("fuse"))
         {
-            setFuse(stack, 140);
+            setFuse(stack, 120);
         }
         return stack.getOrCreateNbt().getInt("fuse");
     }
