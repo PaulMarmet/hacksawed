@@ -1,20 +1,25 @@
 package net.paulm.hacksaw.entity;
 
-import net.minecraft.entity.EntityStatuses;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.Hacksaw;
 import net.paulm.hacksaw.item.DynamiteItem;
@@ -47,11 +52,29 @@ public class DynamiteEntity extends ThrownItemEntity {
         if (fuseTime <= 0) {
             this.explode();
         }
-        this.noClip = !this.getWorld().isSpaceEmpty(this, this.getBoundingBox().contract(1.0E-7));
-        if (this.noClip) {
-            this.pushOutOfBlocks(this.getX(), (this.getBoundingBox().minY + this.getBoundingBox().maxY) / 2.0, this.getZ());
+        this.baseTick();
+        HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
+        boolean bl = false;
+        if (hitResult.getType() == HitResult.Type.BLOCK) {
+            BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
+            BlockState blockState = this.getWorld().getBlockState(blockPos);
+            if (blockState.isOf(Blocks.NETHER_PORTAL)) {
+                this.setInNetherPortal(blockPos);
+                bl = true;
+            } else if (blockState.isOf(Blocks.END_GATEWAY)) {
+                BlockEntity blockEntity = this.getWorld().getBlockEntity(blockPos);
+                if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
+                    EndGatewayBlockEntity.tryTeleportingEntity(this.getWorld(), blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
+                }
+                bl = true;
+            }
         }
+        if (hitResult.getType() != HitResult.Type.MISS && !bl) {
+            this.onCollision(hitResult);
+        }
+        super.move(MovementType.SELF, this.getVelocity());
     }
+
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
