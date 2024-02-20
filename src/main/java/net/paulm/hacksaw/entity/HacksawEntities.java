@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import net.paulm.hacksaw.Hacksaw;
 
 public class HacksawEntities {
-    public static final EntityType<DynamiteEntity> DYNAMITE_STICK = Registry.register(Registries.ENTITY_TYPE, new Identifier(Hacksaw.MOD_ID, "dynamite_stick"), FabricEntityTypeBuilder.<DynamiteEntity>create(SpawnGroup.MISC, DynamiteEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.4f)).build());
+    public static final EntityType<DynamiteEntity> DYNAMITE_STICK = Registry.register(Registries.ENTITY_TYPE, new Identifier(Hacksaw.MOD_ID, "dynamite_stick"), FabricEntityTypeBuilder.<DynamiteEntity>create(SpawnGroup.MISC, DynamiteEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.6f)).build());
 
 
     public static void  registerModEntities() {
