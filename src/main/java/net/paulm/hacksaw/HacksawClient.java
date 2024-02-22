@@ -9,5 +9,6 @@ public class HacksawClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(HacksawEntities.DYNAMITE_STICK, DynamiteRenderer::new);
+        EntityRendererRegistry.register(HacksawEntities.IMPACT_DYNAMITE_STICK, DynamiteRenderer::new);
     }
 }

@@ -35,20 +35,19 @@ public class DynamiteEntity extends ThrownItemEntity {
     private int fuseTime;
     private boolean onImpact;
 
-    public DynamiteEntity(EntityType<DynamiteEntity> entityType, World world) {
+    public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public DynamiteEntity(World world, LivingEntity owner) {
-        super(HacksawEntities.DYNAMITE_STICK, owner, world);
+    public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, LivingEntity owner, World world) {
+        super(entityType, owner, world);
     }
 
-    public DynamiteEntity(World world, double x, double y, double z) {
-        super(HacksawEntities.DYNAMITE_STICK, x, y, z, world);
+    public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, double x, double y, double z, World world) {
+        super(entityType, x, y, z, world);
     }
 
     public void tick() {
-        //super.tick();
         fuseTime--;
         if (this.isOnFire()) {
             fuseTime--;
@@ -83,31 +82,35 @@ public class DynamiteEntity extends ThrownItemEntity {
         this.dynaCollision(MovementType.SELF, this.getVelocity());
     }
 
+    //The bounciness of the collision
     public static float getBounciness() {
-        return 0.3f;
+        return 0.5f;
+    }
+    //The proportion of velocity kept when colliding vertically
+    public static float getDrag() {
+        return 0.7f;
     }
 
     public void dynaCollision(MovementType movementType, Vec3d movement) {
         //More bits from ThrownEntity
-        Vec3d vec3d1 = movement;
         this.checkBlockCollision();
         double g;
         float h;
         this.updateRotation();
         if (this.isTouchingWater()) {
             for (int i = 0; i < 4; ++i) {
-                this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX(), this.getY(), this.getZ(), vec3d1.x, vec3d1.y, vec3d1.z);
+                this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX(), this.getY(), this.getZ(), movement.x, movement.y, movement.z);
             }
             h = 0.8f;
         } else {
             h = 0.99f;
         }
-        this.setVelocity(vec3d1.multiply(h));
+        this.setVelocity(movement.multiply(h));
         if (!this.hasNoGravity()) {
-            Vec3d vec3d2 = this.getVelocity();
-            this.setVelocity(vec3d2.x, vec3d2.y - (double)this.getGravity(), vec3d2.z);
+            this.setVelocity(movement.x, movement.y - (double)this.getGravity(), movement.z);
         }
 
+        movement = this.getVelocity();
         //Stuff from Entity move() for the actual collisions
         Vec3d vec3d;
         if ((g = (vec3d = Entity.adjustMovementForCollisions(this, movement = this.adjustMovementForSneaking(movement, movementType), this.getBoundingBox(), this.getWorld(), this.getWorld().getEntityCollisions(this, this.getBoundingBox().stretch(movement)))).lengthSquared()) > 1.0E-7) {
@@ -122,8 +125,17 @@ public class DynamiteEntity extends ThrownItemEntity {
         //:) boing boing collisions
         this.horizontalCollision = bl || bl2;
         this.verticalCollision = movement.y != vec3d.y;
-        Vec3d vec3d2 = this.getVelocity();
-        this.setVelocity(bl ? -getBounciness()*vec3d2.x : vec3d2.x, this.verticalCollision ? -getBounciness()*vec3d2.y : vec3d2.y, bl2 ? -getBounciness()*vec3d2.z : vec3d2.z);
+        Vec3d vec3d1 = this.getVelocity();
+        if (bl) {
+            vec3d1 = vec3d1.multiply(-getBounciness(), 1, 1);
+        }
+        if (this.verticalCollision) {
+            vec3d1 = vec3d1.multiply(getDrag(), -getBounciness(), getDrag());
+        }
+        if (bl2) {
+            vec3d1 = vec3d1.multiply(1, 1, -getBounciness());
+        }
+        this.setVelocity(vec3d1);
     }
 
 
@@ -154,7 +166,7 @@ public class DynamiteEntity extends ThrownItemEntity {
         }
     }
 
-    private void explode() {
+    public void explode() {
         if (!this.getWorld().isClient) {
             this.getWorld().createExplosion(this, this.getX(), this.getY(), this.getZ(), 3.0f, World.ExplosionSourceType.MOB);
             this.discard();

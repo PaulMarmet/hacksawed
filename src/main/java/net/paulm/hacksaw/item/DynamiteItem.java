@@ -2,7 +2,6 @@ package net.paulm.hacksaw.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -14,6 +13,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.entity.DynamiteEntity;
+import net.paulm.hacksaw.entity.HacksawEntities;
 
 public class DynamiteItem extends Item {
     public DynamiteItem(Settings settings) {
@@ -59,9 +59,9 @@ public class DynamiteItem extends Item {
     public void throwDynamite(World world, PlayerEntity user, ItemStack itemStack) {
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
         if (!world.isClient) {
-            DynamiteEntity dynamiteEntity = new DynamiteEntity(world, user);
+            DynamiteEntity dynamiteEntity = new DynamiteEntity(HacksawEntities.DYNAMITE_STICK, user, world);
             dynamiteEntity.setItem(itemStack);
-            dynamiteEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.5f, 1.0f);
+            dynamiteEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.2f, 0.75f);
             dynamiteEntity.setFuseTime(getFuse(itemStack));
             dynamiteEntity.setOnImpact(false);
             world.spawnEntity(dynamiteEntity);

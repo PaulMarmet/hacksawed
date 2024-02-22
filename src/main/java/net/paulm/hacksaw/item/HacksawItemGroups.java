@@ -17,6 +17,7 @@ public class HacksawItemGroups {
         //Here goes all the items:
         entries.add(HacksawItems.HACKSAW);
         entries.add(HacksawItems.DYNAMITE_STICK);
+        entries.add(HacksawItems.IMPACT_DYNAMITE_STICK);
 
     })).build());
     public static void registerItemGroups() {
