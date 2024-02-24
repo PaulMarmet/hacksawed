@@ -40,6 +40,7 @@ public class DynamiteItem extends Item {
                 user.sendMessage(Text.of("You haven't lit the stick! (Hold a flint and steel in other hand)"));
             return TypedActionResult.fail(itemStack);
         }
+        user.getItemCooldownManager().set(this, 20);
         throwDynamite(world, user, itemStack);
         return TypedActionResult.success(itemStack, world.isClient());
     }

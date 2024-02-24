@@ -17,6 +17,8 @@ public class HacksawItems {
     public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new FabricItemSettings()));
     public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new FabricItemSettings()));
 
+    public static final Item AUTO_LIGHT_DYNAMITE_STICK = registerItem("auto_light_dynamite_stick", new AutoLightDynamiteItem(new FabricItemSettings()));
+
     //This registers the items, no need to touch
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(Hacksaw.MOD_ID, name), item);

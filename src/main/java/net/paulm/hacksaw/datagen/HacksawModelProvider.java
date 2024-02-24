@@ -22,5 +22,6 @@ public class HacksawModelProvider extends FabricModelProvider {
         itemModelGenerator.register(HacksawItems.HACKSAW, Models.GENERATED);
         itemModelGenerator.register(HacksawItems.DYNAMITE_STICK, Models.GENERATED);
         itemModelGenerator.register(HacksawItems.IMPACT_DYNAMITE_STICK, Models.GENERATED);
+        itemModelGenerator.register(HacksawItems.AUTO_LIGHT_DYNAMITE_STICK, Models.GENERATED);
     }
 }
