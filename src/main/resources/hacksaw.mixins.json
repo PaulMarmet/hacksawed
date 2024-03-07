@@ -7,7 +7,8 @@
     "FireChargeMixin",
     "ImmuneExplosionMixin",
     "ItemImmuneExplosionMixin",
-    "ItemUseMixin"
+    "ItemUseMixin",
+    "TorchflowerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

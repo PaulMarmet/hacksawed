@@ -81,6 +81,10 @@ public class DynamiteItem extends Item {
         return itemStack.getOrCreateNbt().getBoolean("isLit");
     }
 
+    public void setLit(ItemStack itemStack, boolean val) {
+        itemStack.getOrCreateNbt().putBoolean("isLit", val);
+    }
+
     public int getFuse(ItemStack stack) {
         if (stack.getNbt() == null || !stack.getNbt().contains("fuse"))
         {

@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.particle.ParticleTypes;
 import net.paulm.hacksaw.damage.HacksawDamageTypes;
 
 
@@ -43,16 +44,8 @@ public class BleedingStatusEffect extends StatusEffect {
     }
 
     public void applyUpdateEffect(LivingEntity entity, int amplifier) {
+        //Damage and add particle
         entity.damage(entity.getDamageSources().create(HacksawDamageTypes.BLEEDING), 1.0f);
+        entity.getWorld().addParticle(ParticleTypes.DRIPPING_HONEY, entity.getX(), entity.getY(), entity.getZ(), 0f, 0f, 0f);
     }
-
-//    public void onRemoved(LivingEntity entity, AttributeContainer attributes, int amplifier) {
-//        super.onRemoved(entity, attributes, amplifier);
-//        Hacksaw.LOGGER.info(String.valueOf(entity.hasStatusEffect(HacksawEffects.BLEEDING)));
-//        if (amplifier > 1) {
-//            entity.addStatusEffect(new StatusEffectInstance(HacksawEffects.BLEEDING, 20, amplifier-1));
-//        }
-//        entity.damage(entity.getDamageSources().create(HacksawDamageTypes.BLEEDING), 1.0f);
-//        Hacksaw.LOGGER.info("Effect ran out with amplifier "+amplifier);
-//    }
 }

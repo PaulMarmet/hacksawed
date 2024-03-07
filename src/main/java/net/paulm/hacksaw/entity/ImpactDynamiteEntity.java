@@ -1,35 +1,21 @@
 package net.paulm.hacksaw.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.paulm.hacksaw.Hacksaw;
-import net.paulm.hacksaw.item.DynamiteItem;
 import net.paulm.hacksaw.item.HacksawItems;
-import net.paulm.hacksaw.item.ImpactDynamiteItem;
 
 public class ImpactDynamiteEntity extends DynamiteEntity {
 
@@ -50,17 +36,12 @@ public class ImpactDynamiteEntity extends DynamiteEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        Hacksaw.LOGGER.info("Interact! "+hand);
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isEmpty()) {
-            ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, HacksawItems.IMPACT_DYNAMITE_STICK.getDefaultStack());
-            if (itemStack2.isOf(HacksawItems.IMPACT_DYNAMITE_STICK)) {
-                ((ImpactDynamiteItem) itemStack2.getItem()).setFuse(itemStack2, getFuseTime());
-            }
-            else {
-                Hacksaw.LOGGER.info("Um, so for some reason, the dynamite item isn't dynamite???");
-            }
-            player.setStackInHand(hand, itemStack2);
+            ItemStack newStack = HacksawItems.IMPACT_DYNAMITE_STICK.getDefaultStack();
+            newStack.setCount(1);
+            player.setStackInHand(hand, newStack);
+            this.discard();
             return ActionResult.SUCCESS;
         }
         return ActionResult.FAIL;

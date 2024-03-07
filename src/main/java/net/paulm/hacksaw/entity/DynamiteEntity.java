@@ -13,7 +13,6 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.particle.ParticleTypes;
@@ -138,23 +137,29 @@ public class DynamiteEntity extends ThrownItemEntity {
         this.setVelocity(vec3d1);
     }
 
+    @Override
+    public boolean canHit() {
+        return true;
+    }
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        Hacksaw.LOGGER.info("Interact! "+hand);
         ItemStack itemStack = player.getStackInHand(hand);
         if (itemStack.isEmpty()) {
-            ItemStack itemStack2 = ItemUsage.exchangeStack(itemStack, player, HacksawItems.DYNAMITE_STICK.getDefaultStack());
-            if (itemStack2.isOf(HacksawItems.DYNAMITE_STICK)) {
-                ((DynamiteItem) itemStack2.getItem()).setFuse(itemStack2, getFuseTime());
+            ItemStack newStack = HacksawItems.DYNAMITE_STICK.getDefaultStack();
+            newStack.setCount(1);
+            if (newStack.isOf(HacksawItems.DYNAMITE_STICK)) {
+                ((DynamiteItem) newStack.getItem()).setFuse(newStack, getFuseTime());
+                ((DynamiteItem) newStack.getItem()).setLit(newStack, true);
             }
             else {
                 Hacksaw.LOGGER.info("Um, so for some reason, the dynamite item isn't dynamite???");
             }
-            player.setStackInHand(hand, itemStack2);
+            player.setStackInHand(hand, newStack);
+            this.discard();
             return ActionResult.SUCCESS;
         }
-        return ActionResult.FAIL;
+        return super.interact(player, hand);
     }
 
     @Override
