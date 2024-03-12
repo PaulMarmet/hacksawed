@@ -13,5 +13,7 @@
   "death.attack.bleeding.player": "%s bled to death whilst trying to escape %s",
 
   "entity.hacksaw.dynamite_stick": "Dynamite Stick",
-  "entity.hacksaw.impact_dynamite_stick": "Impact Dynamite Stick"
+  "entity.hacksaw.impact_dynamite_stick": "Impact Dynamite Stick",
+
+  "enchantment.hacksaw.recoil": "Recoil"
 }
