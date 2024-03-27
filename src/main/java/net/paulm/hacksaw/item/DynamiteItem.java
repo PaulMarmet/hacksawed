@@ -99,8 +99,11 @@ public class DynamiteItem extends Item {
 
     public void explode(ItemStack stack, World world, Entity entity) {
         if (!entity.getWorld().isClient) {
-            entity.getWorld().createExplosion(entity, entity.getX(), entity.getBodyY(0.0625), entity.getZ(), 3.0f, World.ExplosionSourceType.MOB);
+            entity.getWorld().createExplosion(null, entity.getX(), entity.getBodyY(0.0625), entity.getZ(), 3.0f, World.ExplosionSourceType.MOB);
             stack.decrement(1);
         }
     }
+
+    //Not really a better place to place this
+
 }

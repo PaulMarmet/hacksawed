@@ -3,6 +3,7 @@
   "item.hacksaw.dynamite_stick": "Dynamite Stick",
   "item.hacksaw.impact_dynamite_stick": "Impact Dynamite Stick",
   "item.hacksaw.auto_light_dynamite_stick": "Auto Light Dynamite Stick",
+  "item.hacksaw.bouncy_ball": "Bouncy Ball",
 
   "itemgroup.hacksaw": "Paul's Hacksaw",
 
@@ -14,6 +15,7 @@
 
   "entity.hacksaw.dynamite_stick": "Dynamite Stick",
   "entity.hacksaw.impact_dynamite_stick": "Impact Dynamite Stick",
+  "entity.hacksaw.bouncy_ball": "Bouncy Ball",
 
   "enchantment.hacksaw.recoil": "Recoil"
 }

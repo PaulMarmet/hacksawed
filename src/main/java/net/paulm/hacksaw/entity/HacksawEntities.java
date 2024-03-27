@@ -13,6 +13,8 @@ public class HacksawEntities {
     public static final EntityType<DynamiteEntity> DYNAMITE_STICK = Registry.register(Registries.ENTITY_TYPE, new Identifier(Hacksaw.MOD_ID, "dynamite_stick"), FabricEntityTypeBuilder.<DynamiteEntity>create(SpawnGroup.MISC, DynamiteEntity::new).dimensions(EntityDimensions.fixed(0.6f, 0.4f)).build());
     public static final EntityType<ImpactDynamiteEntity> IMPACT_DYNAMITE_STICK = Registry.register(Registries.ENTITY_TYPE, new Identifier(Hacksaw.MOD_ID, "impact_dynamite_stick"), FabricEntityTypeBuilder.<ImpactDynamiteEntity>create(SpawnGroup.MISC, ImpactDynamiteEntity::new).dimensions(EntityDimensions.fixed(0.6f, 0.4f)).build());
 
+    public static final EntityType<BouncyBallEntity> BOUNCY_BALL = Registry.register(Registries.ENTITY_TYPE, new Identifier(Hacksaw.MOD_ID, "bouncy_ball"), FabricEntityTypeBuilder.<BouncyBallEntity>create(SpawnGroup.MISC, BouncyBallEntity::new).dimensions(EntityDimensions.fixed(0.4f, 0.4f)).build());
+
 
     public static void  registerModEntities() {
 
