@@ -14,11 +14,11 @@ public class HacksawItems {
     //And to the dataGen
     //And add the texture
     public static final Item HACKSAW = registerItem("hacksaw", new HacksawItem(1.5f, 1.0f, new Item.Settings()));
-    public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new FabricItemSettings()));
-    public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new FabricItemSettings()));
+    public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new FabricItemSettings().maxCount(16)));
+    public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new FabricItemSettings().maxCount(16)));
 
-    public static final Item AUTO_LIGHT_DYNAMITE_STICK = registerItem("auto_light_dynamite_stick", new AutoLightDynamiteItem(new FabricItemSettings()));
-    public static final Item BOUNCY_BALL = registerItem("bouncy_ball", new BouncyBallItem(new FabricItemSettings()));
+    public static final Item AUTO_LIGHT_DYNAMITE_STICK = registerItem("auto_light_dynamite_stick", new AutoLightDynamiteItem(new FabricItemSettings().maxCount(16)));
+    public static final Item BOUNCY_BALL = registerItem("bouncy_ball", new BouncyBallItem(new FabricItemSettings().maxCount(1)));
 
     //This registers the items, no need to touch
     private static Item registerItem(String name, Item item) {
