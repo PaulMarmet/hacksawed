@@ -57,6 +57,14 @@ public class DynamiteEntity extends ThrownItemEntity {
         }
         //Do the tick() from entity
         this.baseTick();
+
+        this.parentalTick();
+
+        //And now, the supposedly actually functional collisions
+        this.dynaCollision(MovementType.SELF, this.getVelocity());
+    }
+
+    public void parentalTick() {
         //This is a basically the interesting part of the ThrownEntity tick()
         HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
         boolean bl = false;
@@ -77,8 +85,6 @@ public class DynamiteEntity extends ThrownItemEntity {
         if (hitResult.getType() != HitResult.Type.MISS && !bl) {
             this.onCollision(hitResult);
         }
-        //And now, the supposedly actually functional collisions
-        this.dynaCollision(MovementType.SELF, this.getVelocity());
     }
 
     //The bounciness of the collision
@@ -102,14 +108,14 @@ public class DynamiteEntity extends ThrownItemEntity {
             }
             h = 0.8f;
         } else {
-            h = 0.99f;
+            h = 1f;
         }
         this.setVelocity(movement.multiply(h));
+        movement = this.getVelocity();
         if (!this.hasNoGravity()) {
             this.setVelocity(movement.x, movement.y - (double)this.getGravity(), movement.z);
         }
 
-        movement = this.getVelocity();
         //Stuff from Entity move() for the actual collisions
         Vec3d vec3d;
         if ((g = (vec3d = Entity.adjustMovementForCollisions(this, movement = this.adjustMovementForSneaking(movement, movementType), this.getBoundingBox(), this.getWorld(), this.getWorld().getEntityCollisions(this, this.getBoundingBox().stretch(movement)))).lengthSquared()) > 1.0E-7) {

@@ -18,7 +18,7 @@ public class HacksawItems {
     public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new FabricItemSettings().maxCount(16)));
 
     public static final Item AUTO_LIGHT_DYNAMITE_STICK = registerItem("auto_light_dynamite_stick", new AutoLightDynamiteItem(new FabricItemSettings().maxCount(16)));
-    public static final Item BOUNCY_BALL = registerItem("bouncy_ball", new BouncyBallItem(new FabricItemSettings().maxCount(1)));
+    public static final Item BOUNCY_BALL = registerItem("bouncy_ball", new BouncyBallItem(new FabricItemSettings().maxCount(4)));
 
     //This registers the items, no need to touch
     private static Item registerItem(String name, Item item) {

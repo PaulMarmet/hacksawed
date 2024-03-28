@@ -17,22 +17,30 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.paulm.hacksaw.Hacksaw;
 import net.paulm.hacksaw.item.HacksawItems;
 
 public class BouncyBallEntity extends ThrownItemEntity {
+
+    public ItemStack itemForm;
+    public int stillTime = 0;
 
     public BouncyBallEntity(EntityType<? extends BouncyBallEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public BouncyBallEntity(EntityType<? extends BouncyBallEntity> entityType, LivingEntity owner, World world) {
+    public BouncyBallEntity(EntityType<? extends BouncyBallEntity> entityType, LivingEntity owner, World world, ItemStack item) {
         super(entityType, owner, world);
+        this.itemForm = item.copy();
+        this.itemForm.setCount(1);
     }
 
     public BouncyBallEntity(EntityType<? extends BouncyBallEntity> entityType, double x, double y, double z, World world) {
@@ -42,6 +50,33 @@ public class BouncyBallEntity extends ThrownItemEntity {
     public void tick() {
         //Do the tick() from entity
         this.baseTick();
+
+        this.parentalTick();
+
+        //And now, the supposedly actually functional collisions
+        this.bouncyBallCollision(MovementType.SELF, this.getVelocity());
+        //Plop back into item if not moving for a bit
+        if (this.getVelocity().length() <= 0.05) {
+            this.stillTime++;
+        }
+        else {
+            this.stillTime = 0;
+        }
+        if (this.stillTime >= 100) {
+            this.returnToItem();
+        }
+    }
+
+    //The bounciness of the collision
+    public static float getBounciness() {
+        return 0.5f;
+    }
+    //The proportion of velocity kept when colliding vertically
+    public static float getDrag() {
+        return 0.7f;
+    }
+
+    public void parentalTick() {
         //This is a basically the interesting part of the ThrownEntity tick()
         HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
         boolean bl = false;
@@ -62,17 +97,6 @@ public class BouncyBallEntity extends ThrownItemEntity {
         if (hitResult.getType() != HitResult.Type.MISS && !bl) {
             this.onCollision(hitResult);
         }
-        //And now, the supposedly actually functional collisions
-        this.bouncyBallCollision(MovementType.SELF, this.getVelocity());
-    }
-
-    //The bounciness of the collision
-    public static float getBounciness() {
-        return 0.5f;
-    }
-    //The proportion of velocity kept when colliding vertically
-    public static float getDrag() {
-        return 0.7f;
     }
 
     public void bouncyBallCollision(MovementType movementType, Vec3d movement) {
@@ -87,14 +111,15 @@ public class BouncyBallEntity extends ThrownItemEntity {
             }
             h = 0.8f;
         } else {
-            h = 0.99f;
+            h = 1f;
         }
         this.setVelocity(movement.multiply(h));
+        movement = this.getVelocity();
         if (!this.hasNoGravity()) {
             this.setVelocity(movement.x, movement.y - (double)this.getGravity(), movement.z);
         }
 
-        movement = this.getVelocity();
+
         //Stuff from Entity move() for the actual collisions
         Vec3d vec3d;
         if ((g = (vec3d = Entity.adjustMovementForCollisions(this, movement = this.adjustMovementForSneaking(movement, movementType), this.getBoundingBox(), this.getWorld(), this.getWorld().getEntityCollisions(this, this.getBoundingBox().stretch(movement)))).lengthSquared()) > 1.0E-7) {
@@ -122,6 +147,13 @@ public class BouncyBallEntity extends ThrownItemEntity {
         this.setVelocity(vec3d1);
     }
 
+    public void returnToItem() {
+        if (this.itemForm != null) {
+            this.dropStack(this.itemForm);
+        }
+        this.discard();
+    }
+
     @Override
     public boolean canHit() {
         return true;
@@ -129,20 +161,47 @@ public class BouncyBallEntity extends ThrownItemEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isEmpty()) {
-            ItemStack newStack = HacksawItems.BOUNCY_BALL.getDefaultStack();
-            newStack.setCount(1);
-            player.setStackInHand(hand, newStack);
-            this.discard();
-            return ActionResult.SUCCESS;
+        if (this.itemForm != null) {
+            player.giveItemStack(this.itemForm);
         }
-        return super.interact(player, hand);
+        this.discard();
+        return ActionResult.SUCCESS;
     }
 
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
+    }
+
+    @Override
+    protected void onEntityHit(EntityHitResult entityHitResult) {
+        Box entityBox = entityHitResult.getEntity().getBoundingBox();
+        Box intersection  = entityBox.intersection(this.getBoundingBox());
+        Hacksaw.LOGGER.info("Collision!");
+        //Get slimmest dim
+        if((intersection.getXLength()/entityBox.getXLength() < intersection.getYLength()/entityBox.getYLength()) && (intersection.getXLength()/entityBox.getXLength() < intersection.getZLength()/entityBox.getZLength())) {
+            //Change x velocity
+            if (intersection.getCenter().getX() < entityBox.getCenter().getX()) {
+                this.setVelocity(-Math.abs(this.getVelocity().getX()), this.getVelocity().getY(), this.getVelocity().getZ());
+            } else {
+                this.setVelocity(Math.abs(this.getVelocity().getX()), this.getVelocity().getY(), this.getVelocity().getZ());
+            }
+        } else if (intersection.getYLength()/entityBox.getYLength() < intersection.getZLength()/entityBox.getZLength()) {
+            //Change y velocity
+            if (intersection.getCenter().getY() < entityBox.getCenter().getY()) {
+                this.setVelocity(this.getVelocity().getX(), -Math.abs(this.getVelocity().getY()), this.getVelocity().getZ());
+            } else {
+                this.setVelocity(this.getVelocity().getX(), Math.abs(this.getVelocity().getY()), this.getVelocity().getZ());
+            }
+        } else {
+            //Change z velocity
+            if (intersection.getCenter().getZ() < entityBox.getCenter().getZ()) {
+                this.setVelocity(this.getVelocity().getX(), this.getVelocity().getY(), -Math.abs(this.getVelocity().getZ()));
+            } else {
+                this.setVelocity(this.getVelocity().getX(), this.getVelocity().getY(), Math.abs(this.getVelocity().getZ()));
+            }
+        }
+
     }
 
     @Override

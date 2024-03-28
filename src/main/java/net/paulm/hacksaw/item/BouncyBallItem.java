@@ -28,8 +28,7 @@ public class BouncyBallItem extends Item {
     public void throwBall(World world, PlayerEntity user, ItemStack itemStack) {
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
         if (!world.isClient) {
-            BouncyBallEntity bouncyBallEntity = new BouncyBallEntity(HacksawEntities.BOUNCY_BALL, user, world);
-            bouncyBallEntity.setItem(itemStack);
+            BouncyBallEntity bouncyBallEntity = new BouncyBallEntity(HacksawEntities.BOUNCY_BALL, user, world, itemStack);
             bouncyBallEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.2f, 0.75f);
             world.spawnEntity(bouncyBallEntity);
         }
