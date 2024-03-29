@@ -1,15 +1,13 @@
 package net.paulm.hacksaw.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -20,30 +18,38 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.Hacksaw;
-import net.paulm.hacksaw.item.DynamiteItem;
 import net.paulm.hacksaw.item.HacksawItems;
 
 public class DynamiteEntity extends ThrownItemEntity {
 
     private int fuseTime;
     private boolean onImpact;
+    private static final TrackedData<ItemStack> ITEM = DataTracker.registerData(DynamiteEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
     public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, LivingEntity owner, World world) {
+    public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, LivingEntity owner, World world, ItemStack item) {
         super(entityType, owner, world);
+        ItemStack tempItem = item.copy();
+        tempItem.setCount(1);
+        this.setItem(tempItem);
     }
 
     public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, double x, double y, double z, World world) {
         super(entityType, x, y, z, world);
+    }
+
+    @Override
+    protected void initDataTracker() {
+        super.initDataTracker();
+        this.dataTracker.startTracking(ITEM, new ItemStack(getDefaultItem()));
     }
 
     public void tick() {
@@ -55,36 +61,12 @@ public class DynamiteEntity extends ThrownItemEntity {
         if (fuseTime <= 0) {
             this.explode();
         }
-        //Do the tick() from entity
-        this.baseTick();
-
-        this.parentalTick();
-
+        //Do the tick()
+        Vec3d oldPos = this.getPos();
+        super.tick();
+        this.setPosition(oldPos);
         //And now, the supposedly actually functional collisions
         this.dynaCollision(MovementType.SELF, this.getVelocity());
-    }
-
-    public void parentalTick() {
-        //This is a basically the interesting part of the ThrownEntity tick()
-        HitResult hitResult = ProjectileUtil.getCollision(this, this::canHit);
-        boolean bl = false;
-        if (hitResult.getType() == HitResult.Type.BLOCK) {
-            BlockPos blockPos = ((BlockHitResult)hitResult).getBlockPos();
-            BlockState blockState = this.getWorld().getBlockState(blockPos);
-            if (blockState.isOf(Blocks.NETHER_PORTAL)) {
-                this.setInNetherPortal(blockPos);
-                bl = true;
-            } else if (blockState.isOf(Blocks.END_GATEWAY)) {
-                BlockEntity blockEntity = this.getWorld().getBlockEntity(blockPos);
-                if (blockEntity instanceof EndGatewayBlockEntity && EndGatewayBlockEntity.canTeleport(this)) {
-                    EndGatewayBlockEntity.tryTeleportingEntity(this.getWorld(), blockPos, blockState, this, (EndGatewayBlockEntity)blockEntity);
-                }
-                bl = true;
-            }
-        }
-        if (hitResult.getType() != HitResult.Type.MISS && !bl) {
-            this.onCollision(hitResult);
-        }
     }
 
     //The bounciness of the collision
@@ -97,25 +79,7 @@ public class DynamiteEntity extends ThrownItemEntity {
     }
 
     public void dynaCollision(MovementType movementType, Vec3d movement) {
-        //More bits from ThrownEntity
-        this.checkBlockCollision();
         double g;
-        float h;
-        this.updateRotation();
-        if (this.isTouchingWater()) {
-            for (int i = 0; i < 4; ++i) {
-                this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX(), this.getY(), this.getZ(), movement.x, movement.y, movement.z);
-            }
-            h = 0.8f;
-        } else {
-            h = 1f;
-        }
-        this.setVelocity(movement.multiply(h));
-        movement = this.getVelocity();
-        if (!this.hasNoGravity()) {
-            this.setVelocity(movement.x, movement.y - (double)this.getGravity(), movement.z);
-        }
-
         //Stuff from Entity move() for the actual collisions
         Vec3d vec3d;
         if ((g = (vec3d = Entity.adjustMovementForCollisions(this, movement = this.adjustMovementForSneaking(movement, movementType), this.getBoundingBox(), this.getWorld(), this.getWorld().getEntityCollisions(this, this.getBoundingBox().stretch(movement)))).lengthSquared()) > 1.0E-7) {
@@ -150,22 +114,20 @@ public class DynamiteEntity extends ThrownItemEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isEmpty()) {
-            ItemStack newStack = HacksawItems.DYNAMITE_STICK.getDefaultStack();
-            newStack.setCount(1);
-            if (newStack.isOf(HacksawItems.DYNAMITE_STICK)) {
-                ((DynamiteItem) newStack.getItem()).setFuse(newStack, getFuseTime());
-                ((DynamiteItem) newStack.getItem()).setLit(newStack, true);
+        if (!this.getWorld().isClient()) {
+            if (this.getItem() != null) {
+                this.getItem().getOrCreateNbt().putInt("fuse", this.getFuseTime());
+                this.getItem().getOrCreateNbt().putBoolean("isLit", true);
+                player.giveItemStack(this.getItem());
+            } else {
+                ItemStack item = new ItemStack(getDefaultItem(), 1);
+                item.getOrCreateNbt().putInt("fuse", this.getFuseTime());
+                item.getOrCreateNbt().putBoolean("isLit", true);
+                player.giveItemStack(item);
             }
-            else {
-                Hacksaw.LOGGER.info("Um, so for some reason, the dynamite item isn't dynamite???");
-            }
-            player.setStackInHand(hand, newStack);
-            this.discard();
-            return ActionResult.SUCCESS;
         }
-        return super.interact(player, hand);
+        this.discard();
+        return ActionResult.SUCCESS;
     }
 
     @Override

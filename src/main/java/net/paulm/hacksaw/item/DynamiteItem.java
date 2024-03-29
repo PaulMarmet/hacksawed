@@ -60,7 +60,7 @@ public class DynamiteItem extends Item {
     public void throwDynamite(World world, PlayerEntity user, ItemStack itemStack) {
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
         if (!world.isClient) {
-            DynamiteEntity dynamiteEntity = new DynamiteEntity(HacksawEntities.DYNAMITE_STICK, user, world);
+            DynamiteEntity dynamiteEntity = new DynamiteEntity(HacksawEntities.DYNAMITE_STICK, user, world, itemStack);
             dynamiteEntity.setItem(itemStack);
             dynamiteEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.2f, 0.75f);
             dynamiteEntity.setFuseTime(getFuse(itemStack));

@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.ActionResult;
@@ -15,19 +14,19 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.paulm.hacksaw.item.HacksawItems;
+import net.paulm.hacksaw.Hacksaw;
 
 public class ImpactDynamiteEntity extends DynamiteEntity {
-
-    private int fuseTime;
-    private boolean onImpact;
 
     public ImpactDynamiteEntity(EntityType<? extends ImpactDynamiteEntity> entityType, World world) {
         super(entityType, world);
     }
 
-    public ImpactDynamiteEntity(EntityType<? extends ImpactDynamiteEntity> entityType, LivingEntity owner, World world) {
-        super(entityType, owner, world);
+    public ImpactDynamiteEntity(EntityType<? extends ImpactDynamiteEntity> entityType, LivingEntity owner, World world, ItemStack item) {
+        super(entityType, owner, world, item);
+        ItemStack tempItem = item.copy();
+        tempItem.setCount(1);
+        this.setItem(tempItem);
     }
 
     public ImpactDynamiteEntity(EntityType<? extends ImpactDynamiteEntity> entityType, double x, double y, double z, World world) {
@@ -36,40 +35,22 @@ public class ImpactDynamiteEntity extends DynamiteEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
-        ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isEmpty()) {
-            ItemStack newStack = HacksawItems.IMPACT_DYNAMITE_STICK.getDefaultStack();
-            newStack.setCount(1);
-            player.setStackInHand(hand, newStack);
-            this.discard();
-            return ActionResult.SUCCESS;
+        if (!this.getWorld().isClient()) {
+            if (this.getItem() != null) {
+                player.giveItemStack(this.getItem());
+            } else {
+                player.giveItemStack(new ItemStack(getDefaultItem(), 1));
+            }
         }
-        return ActionResult.FAIL;
+        this.discard();
+        return ActionResult.SUCCESS;
     }
 
 
-    //apparently it sometimes does a bounce so im maing it explode if it somehow does
+    //apparently it sometimes does a bounce so im making it explode if it somehow does
     @Override
     public void dynaCollision(MovementType movementType, Vec3d movement) {
-        //More bits from ThrownEntity
-        this.checkBlockCollision();
         double g;
-        float h;
-        this.updateRotation();
-        if (this.isTouchingWater()) {
-            for (int i = 0; i < 4; ++i) {
-                this.getWorld().addParticle(ParticleTypes.BUBBLE, this.getX(), this.getY(), this.getZ(), movement.x, movement.y, movement.z);
-            }
-            h = 0.8f;
-        } else {
-            h = 0.99f;
-        }
-        this.setVelocity(movement.multiply(h));
-        if (!this.hasNoGravity()) {
-            this.setVelocity(movement.x, movement.y - (double)this.getGravity(), movement.z);
-        }
-
-        movement = this.getVelocity();
         //Stuff from Entity move() for the actual collisions
         Vec3d vec3d;
         if ((g = (vec3d = Entity.adjustMovementForCollisions(this, movement = this.adjustMovementForSneaking(movement, movementType), this.getBoundingBox(), this.getWorld(), this.getWorld().getEntityCollisions(this, this.getBoundingBox().stretch(movement)))).lengthSquared()) > 1.0E-7) {
@@ -81,9 +62,4 @@ public class ImpactDynamiteEntity extends DynamiteEntity {
         }
     }
 
-
-    @Override
-    protected Item getDefaultItem() {
-        return HacksawItems.IMPACT_DYNAMITE_STICK;
-    }
 }
