@@ -13,7 +13,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -23,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.Hacksaw;
+import net.paulm.hacksaw.item.DynamiteItem;
 import net.paulm.hacksaw.item.HacksawItems;
 
 public class DynamiteEntity extends ThrownItemEntity {
@@ -54,6 +54,7 @@ public class DynamiteEntity extends ThrownItemEntity {
 
     public void tick() {
         fuseTime--;
+        DynamiteItem.summonSpark(this);
         if (this.isOnFire()) {
             fuseTime--;
             fuseTime--;

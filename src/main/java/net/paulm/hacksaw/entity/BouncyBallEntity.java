@@ -105,19 +105,23 @@ public class BouncyBallEntity extends ThrownItemEntity {
 
     public void moveTowardsOwner() {
         Vec3d owner = this.getOwner().getPos();
-        Vec3d ball = this.getPos();
-        Vec3d posDiffRatio = new Vec3d(owner.getX() - ball.getX(), owner.getY() - ball.getY(), owner.getZ() - ball.getZ()).normalize();
-        //Make redirect
-        int redirect = 0;
-        redirect += (this.getVelocity().getX() * posDiffRatio.getX()) < 0 ? 1 : 0;
-        redirect += (this.getVelocity().getY() * posDiffRatio.getY()) < 0 ? 1 : 0;
-        redirect += (this.getVelocity().getZ() * posDiffRatio.getZ()) < 0 ? 1 : 0;
-        if ((redirect == 3 && ball.distanceTo(owner) >= 5) || (redirect >= 2 && ball.distanceTo(owner) >= 25)) {
-            this.setVelocity(posDiffRatio.multiply(getReturnVelocity()));
+        if (owner != null) {
+            Vec3d ball = this.getPos();
+            Vec3d posDiffRatio = new Vec3d(owner.getX() - ball.getX(), owner.getY() - ball.getY(), owner.getZ() - ball.getZ()).normalize();
+            //Make redirect
+            int redirect = 0;
+            redirect += (this.getVelocity().getX() * posDiffRatio.getX()) < 0 ? 1 : 0;
+            redirect += (this.getVelocity().getY() * posDiffRatio.getY()) < 0 ? 1 : 0;
+            redirect += (this.getVelocity().getZ() * posDiffRatio.getZ()) < 0 ? 1 : 0;
+            if ((redirect == 3 && ball.distanceTo(owner) >= 5) || (redirect >= 2 && ball.distanceTo(owner) >= 25)) {
+                this.setVelocity(posDiffRatio.multiply(getReturnVelocity()));
+            } else {
+                this.setVelocity(this.getVelocity().add(posDiffRatio.multiply(getReturnVelocity())));
+            }
+            this.setPosition(this.getPos().add(this.getVelocity()));
         } else {
-            this.setVelocity(this.getVelocity().add(posDiffRatio.multiply(getReturnVelocity())));
+            this.returnToItem();
         }
-        this.setPosition(this.getPos().add(this.getVelocity()));
     }
 
     //The bounciness of the collision

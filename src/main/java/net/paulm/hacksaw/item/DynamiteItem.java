@@ -11,9 +11,13 @@ import net.minecraft.stat.Stats;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.entity.DynamiteEntity;
 import net.paulm.hacksaw.entity.HacksawEntities;
+import net.paulm.hacksaw.particle.HacksawParticles;
 
 public class DynamiteItem extends Item {
     public DynamiteItem(Settings settings) {
@@ -22,6 +26,7 @@ public class DynamiteItem extends Item {
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (isLit(stack)) {
+            summonSpark(entity);
             setFuse(stack, getFuse(stack) - 1);
             if (getFuse(stack) % 20 == 0 && world.isClient()) {
                 entity.sendMessage(Text.of(getFuse(stack)/20+" seconds left!"));
@@ -102,6 +107,20 @@ public class DynamiteItem extends Item {
             entity.getWorld().createExplosion(null, entity.getX(), entity.getBodyY(0.0625), entity.getZ(), 3.0f, World.ExplosionSourceType.MOB);
             stack.decrement(1);
         }
+    }
+
+    public static void summonSpark(Entity entity) {
+        Box box = entity.getBoundingBox();
+        Vec3d vec3d = entity.getVelocity();
+        Random r = Random.createLocal();
+        double r1 = r.nextFloat()*box.getXLength();
+        double r2 = r.nextFloat()*box.getYLength();
+        double r3 = r.nextFloat()*box.getZLength();
+
+        double d = box.minX + r1;
+        double e = box.minY + r2;
+        double f = box.minZ + r3;
+        entity.getWorld().addParticle(HacksawParticles.SPARK, d, e, f, (r.nextFloat())-0.5, (r.nextFloat())-0.5, (r.nextFloat())-0.5);
     }
 
     //Not really a better place to place this

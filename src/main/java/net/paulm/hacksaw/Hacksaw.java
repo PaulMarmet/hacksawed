@@ -7,6 +7,7 @@ import net.paulm.hacksaw.enchantment.HacksawEnchantments;
 import net.paulm.hacksaw.entity.HacksawEntities;
 import net.paulm.hacksaw.item.HacksawItemGroups;
 import net.paulm.hacksaw.item.HacksawItems;
+import net.paulm.hacksaw.particle.HacksawParticles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +27,7 @@ public class Hacksaw implements ModInitializer {
 		HacksawEffects.registerModEffects();
 		HacksawEntities.registerModEntities();
 		HacksawEnchantments.registerHacksawEnchantments();
+		HacksawParticles.registerModParticles();
 
 		LOGGER.info("Hacksawed On!");
 	}
