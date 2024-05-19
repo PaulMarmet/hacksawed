@@ -4,6 +4,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
+import net.paulm.hacksaw.HacksawConfig;
 import net.paulm.hacksaw.effect.BleedingStatusEffect;
 
 public class HacksawItem extends AxeItem {
@@ -11,12 +12,8 @@ public class HacksawItem extends AxeItem {
         super(HacksawMaterial.HACKSAW, attackDamage, attackSpeed, settings);
     }
 
-    public static int initBleedDuration = 60;
-    public static int contBleedDuration = 80;
-    public static int bleedAmpDuration = 1600;
-
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        BleedingStatusEffect.applyEffect(target, attacker, initBleedDuration, contBleedDuration, bleedAmpDuration);
+        BleedingStatusEffect.applyEffect(target, attacker, HacksawConfig.initBleedTime, HacksawConfig.continuationBleedTime);
         stack.damage(1, attacker, e -> e.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
         return true;
     }

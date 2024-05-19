@@ -17,5 +17,30 @@
   "entity.hacksaw.impact_dynamite_stick": "Impact Dynamite Stick",
   "entity.hacksaw.bouncy_ball": "Bouncy Ball",
 
-  "enchantment.hacksaw.recoil": "Recoil"
+  "enchantment.hacksaw.recoil": "Recoil",
+
+  "hacksaw.midnightconfig.title":"Hacksaw's Configs",
+  "hacksaw.midnightconfig.enum.SelectionType.ALL":"ALL",
+  "hacksaw.midnightconfig.enum.SelectionType.SOME":"SOME",
+  "hacksaw.midnightconfig.enum.SelectionType.VANILLA":"VANILLA",
+  "hacksaw.midnightconfig.bleedingConfig1":"Bleeding Effect:",
+  "hacksaw.midnightconfig.bleedingAmplificationTime":"Bleeding Amplification Time",
+  "hacksaw.midnightconfig.waterBleedingChance":"Bleeding Continuation Chance in Water",
+  "hacksaw.midnightconfig.hacksawConfig1":"Hacksaw Item:",
+  "hacksaw.midnightconfig.initBleedTime":"Initial Hit Bleeding Time",
+  "hacksaw.midnightconfig.continuationBleedTime":"Consecutive Hit Bleeding Time",
+  "hacksaw.midnightconfig.dynamiteConfig1":"Dynamite:",
+  "hacksaw.midnightconfig.dynamiteFuseTime":"Dynamite Fuse Time (in ticks)",
+  "hacksaw.midnightconfig.dynamiteBounciness":"Dynamite Bounciness",
+  "hacksaw.midnightconfig.dynamiteDrag":"Dynamite Drag",
+  "hacksaw.midnightconfig.bouncyBallConfig1":"Bouncy Ball:",
+  "hacksaw.midnightconfig.bouncyBallBounciness":"Bouncy Ball Bounciness",
+  "hacksaw.midnightconfig.bouncyBallDrag":"Bouncy Ball Drag",
+  "hacksaw.midnightconfig.ItemConfig1":"Item Changes:",
+  "hacksaw.midnightconfig.explosionProofItems":"Items are Immune to Explosions",
+  "hacksaw.midnightconfig.fireProofItems":"Items are Immune to Fire",
+  "hacksaw.midnightconfig.OtherConfig1":"Other Changes:",
+  "hacksaw.midnightconfig.recoilAmount":"Recoil Amount per Enchant Level",
+  "hacksaw.midnightconfig.untramplableWetFarmland":"Wet Farmland cant be Trampled",
+  "hacksaw.midnightconfig.echoShardRings":"Echo Shards Ring Out"
 }

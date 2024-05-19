@@ -22,6 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.Hacksaw;
+import net.paulm.hacksaw.HacksawConfig;
 import net.paulm.hacksaw.item.DynamiteItem;
 import net.paulm.hacksaw.item.HacksawItems;
 
@@ -72,11 +73,11 @@ public class DynamiteEntity extends ThrownItemEntity {
 
     //The bounciness of the collision
     public static float getBounciness() {
-        return 0.5f;
+        return HacksawConfig.dynamiteBounciness;
     }
     //The proportion of velocity kept when colliding vertically
     public static float getDrag() {
-        return 0.7f;
+        return HacksawConfig.dynamiteDrag;
     }
 
     public void dynaCollision(MovementType movementType, Vec3d movement) {
@@ -97,13 +98,13 @@ public class DynamiteEntity extends ThrownItemEntity {
         this.verticalCollision = movement.y != vec3d.y;
         Vec3d vec3d1 = this.getVelocity();
         if (bl) {
-            vec3d1 = vec3d1.multiply(-getBounciness(), 1, 1);
+            vec3d1 = vec3d1.multiply(-getBounciness(), getDrag(), getDrag());
         }
         if (this.verticalCollision) {
             vec3d1 = vec3d1.multiply(getDrag(), -getBounciness(), getDrag());
         }
         if (bl2) {
-            vec3d1 = vec3d1.multiply(1, 1, -getBounciness());
+            vec3d1 = vec3d1.multiply(getDrag(), getDrag(), -getBounciness());
         }
         this.setVelocity(vec3d1);
     }
@@ -115,20 +116,24 @@ public class DynamiteEntity extends ThrownItemEntity {
 
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
+        boolean added = false;
         if (!this.getWorld().isClient()) {
             if (this.getItem() != null) {
                 this.getItem().getOrCreateNbt().putInt("fuse", this.getFuseTime());
                 this.getItem().getOrCreateNbt().putBoolean("isLit", true);
-                player.giveItemStack(this.getItem());
+                added = player.giveItemStack(this.getItem());
             } else {
                 ItemStack item = new ItemStack(getDefaultItem(), 1);
                 item.getOrCreateNbt().putInt("fuse", this.getFuseTime());
                 item.getOrCreateNbt().putBoolean("isLit", true);
-                player.giveItemStack(item);
+                added = player.giveItemStack(item);
             }
         }
-        this.discard();
-        return ActionResult.SUCCESS;
+        if (added) {
+            this.discard();
+            return ActionResult.SUCCESS;
+        }
+        return ActionResult.FAIL;
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.paulm.hacksaw.HacksawConfig;
 import net.paulm.hacksaw.entity.DynamiteEntity;
 import net.paulm.hacksaw.entity.HacksawEntities;
 import net.paulm.hacksaw.particle.HacksawParticles;
@@ -93,7 +94,7 @@ public class DynamiteItem extends Item {
     public int getFuse(ItemStack stack) {
         if (stack.getNbt() == null || !stack.getNbt().contains("fuse"))
         {
-            setFuse(stack, 120);
+            setFuse(stack, HacksawConfig.dynamiteFuseTime);
         }
         return stack.getOrCreateNbt().getInt("fuse");
     }
@@ -109,6 +110,8 @@ public class DynamiteItem extends Item {
         }
     }
 
+    public static float sparkSpread = 0.1f;
+
     public static void summonSpark(Entity entity) {
         Box box = entity.getBoundingBox();
         Vec3d vec3d = entity.getVelocity();
@@ -120,7 +123,7 @@ public class DynamiteItem extends Item {
         double d = box.minX + r1;
         double e = box.minY + r2;
         double f = box.minZ + r3;
-        entity.getWorld().addParticle(HacksawParticles.SPARK, d, e, f, (r.nextFloat())-0.5, (r.nextFloat())-0.5, (r.nextFloat())-0.5);
+        entity.getWorld().addParticle(HacksawParticles.SPARK, d, e, f, (r.nextFloat()-0.5)*sparkSpread, (r.nextFloat()-0.5)*sparkSpread, (r.nextFloat()-0.5)*sparkSpread);
     }
 
     //Not really a better place to place this

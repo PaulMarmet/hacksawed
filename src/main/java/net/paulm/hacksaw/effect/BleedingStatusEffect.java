@@ -5,6 +5,7 @@ import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.particle.ParticleTypes;
+import net.paulm.hacksaw.HacksawConfig;
 import net.paulm.hacksaw.damage.HacksawDamageTypes;
 
 
@@ -21,13 +22,13 @@ public class BleedingStatusEffect extends StatusEffect {
         return true;
     }
 
-    public static void applyEffect(LivingEntity target, LivingEntity attacker, int initBleedDuration, int contBleedDuration, int bleedAmpDuration) {
+    public static void applyEffect(LivingEntity target, LivingEntity attacker, int initBleedDuration, int contBleedDuration) {
         StatusEffectInstance effect;
         //If the target already has the effect, add to the effect
         if(target.hasStatusEffect(HacksawEffects.BLEEDING)) {
             effect = target.getStatusEffect(HacksawEffects.BLEEDING);
             //If the effect's length is above the max point
-            if (effect.getDuration() > bleedAmpDuration) {
+            if (effect.getDuration() > HacksawConfig.bleedingAmplificationTime) {
                 //add the time, then cut it in half and increase the effect level by one
                 effect.upgrade(new StatusEffectInstance(HacksawEffects.BLEEDING, (effect.getDuration()+contBleedDuration)/2, effect.getAmplifier()+1));
             }

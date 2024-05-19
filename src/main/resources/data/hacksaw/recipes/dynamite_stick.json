@@ -8,6 +8,9 @@
       "item": "minecraft:gunpowder"
     },
     {
+      "item": "minecraft:string"
+    },
+    {
       "item": "minecraft:red_dye"
     }
   ],

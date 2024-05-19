@@ -8,7 +8,7 @@ import net.minecraft.recipe.Ingredient;
 import java.util.function.Supplier;
 
 public enum HacksawMaterial implements ToolMaterial {
-    HACKSAW(350, 7.0f, 1.5f, MiningLevels.IRON, 14, () -> Ingredient.ofItems(Items.IRON_INGOT));
+    HACKSAW(350, 7.0f, 1.5f, MiningLevels.IRON, 14, () -> Ingredient.ofItems(Items.IRON_BARS));
 
     private final int durability;
     private final float miningSpeedMultiplier;

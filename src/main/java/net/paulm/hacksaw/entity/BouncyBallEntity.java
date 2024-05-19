@@ -25,7 +25,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.paulm.hacksaw.Hacksaw;
+import net.paulm.hacksaw.HacksawConfig;
 import net.paulm.hacksaw.item.HacksawItems;
+
+import java.util.Objects;
 
 public class BouncyBallEntity extends ThrownItemEntity {
 
@@ -104,7 +107,7 @@ public class BouncyBallEntity extends ThrownItemEntity {
     }
 
     public void moveTowardsOwner() {
-        Vec3d owner = this.getOwner().getPos();
+        Vec3d owner = Objects.requireNonNull(this.getOwner()).getPos();
         if (owner != null) {
             Vec3d ball = this.getPos();
             Vec3d posDiffRatio = new Vec3d(owner.getX() - ball.getX(), owner.getY() - ball.getY(), owner.getZ() - ball.getZ()).normalize();
@@ -126,11 +129,11 @@ public class BouncyBallEntity extends ThrownItemEntity {
 
     //The bounciness of the collision
     public static float getBounciness() {
-        return 0.5f;
+        return HacksawConfig.bouncyBallBounciness;
     }
     //The proportion of velocity kept when colliding vertically
     public static float getDrag() {
-        return 0.7f;
+        return HacksawConfig.bouncyBallDrag;
     }
 
     public void bouncyBallCollision(MovementType movementType, Vec3d movement) {
@@ -163,7 +166,8 @@ public class BouncyBallEntity extends ThrownItemEntity {
     }
 
     public void returnToItem() {
-        if (this.getItem() != null) {
+        if (this.getItem() != null && this.getItem().getCount() != 0) {
+            Hacksaw.LOGGER.info(String.valueOf(this.getItem()));
             this.dropStack(this.getItem());
         } else {
             this.dropStack(new ItemStack(HacksawItems.BOUNCY_BALL, 1));
@@ -180,16 +184,19 @@ public class BouncyBallEntity extends ThrownItemEntity {
     public ActionResult interact(PlayerEntity player, Hand hand) {
         boolean added = false;
         if (!this.getWorld().isClient()) {
-            if (this.getItem() != null) {
+            if (this.getItem() != null && !this.getItem().isEmpty()) {
+                Hacksaw.LOGGER.info(" "+this.getItem());
                 added = player.giveItemStack(this.getItem());
             } else {
-                added = player.giveItemStack(new ItemStack(getDefaultItem(), 1));
+                added = player.giveItemStack(new ItemStack(this.getDefaultItem(), 1));
+                Hacksaw.LOGGER.info(added+" "+this.getDefaultItem());
             }
         }
         if (added) {
             this.discard();
+            return ActionResult.SUCCESS;
         }
-        return ActionResult.SUCCESS;
+        return ActionResult.FAIL;
     }
 
     public float entityVelocityTransfer() {

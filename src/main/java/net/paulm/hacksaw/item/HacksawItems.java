@@ -13,7 +13,7 @@ public class HacksawItems {
     //And add to the lang file
     //And to the dataGen
     //And add the texture
-    public static final Item HACKSAW = registerItem("hacksaw", new HacksawItem(1.5f, 1.0f, new Item.Settings()));
+    public static final Item HACKSAW = registerItem("hacksaw", new HacksawItem(1.5f, -2.0f, new Item.Settings()));
     public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new FabricItemSettings().maxCount(16)));
     public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new FabricItemSettings().maxCount(16)));
 

@@ -1,11 +1,13 @@
 package net.paulm.hacksaw;
 
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.paulm.hacksaw.effect.HacksawEffects;
 import net.paulm.hacksaw.enchantment.HacksawEnchantments;
 import net.paulm.hacksaw.entity.HacksawEntities;
 import net.paulm.hacksaw.item.HacksawItemGroups;
+import net.paulm.hacksaw.item.HacksawItemTags;
 import net.paulm.hacksaw.item.HacksawItems;
 import net.paulm.hacksaw.particle.HacksawParticles;
 import org.slf4j.Logger;
@@ -28,6 +30,8 @@ public class Hacksaw implements ModInitializer {
 		HacksawEntities.registerModEntities();
 		HacksawEnchantments.registerHacksawEnchantments();
 		HacksawParticles.registerModParticles();
+		HacksawItemTags.registerModTags();
+		MidnightConfig.init("hacksaw", HacksawConfig.class);
 
 		LOGGER.info("Hacksawed On!");
 	}
