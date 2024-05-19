@@ -40,6 +40,12 @@
     "minecraft:red_nether_bricks",
     "minecraft:red_nether_brick_stairs",
     "minecraft:red_nether_brick_slab",
-    "minecraft:red_nether_brick_wall"
+    "minecraft:red_nether_brick_wall",
+    "minecraft:obsidian",
+    "minecraft:crying_obsidian",
+    "minecraft:beacon",
+    "minecraft:lodestone",
+    "minecraft:reinforced_deepslate",
+    "minecraft:respawn_anchor"
   ]
 }
