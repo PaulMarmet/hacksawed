@@ -26,6 +26,7 @@
   "hacksaw.midnightconfig.bleedingConfig1":"Bleeding Effect:",
   "hacksaw.midnightconfig.bleedingAmplificationTime":"Bleeding Amplification Time",
   "hacksaw.midnightconfig.waterBleedingChance":"Bleeding Continuation Chance in Water",
+  "hacksaw.midnightconfig.waterBleedingChance.tooltip":"Currently does nothing!",
   "hacksaw.midnightconfig.hacksawConfig1":"Hacksaw Item:",
   "hacksaw.midnightconfig.initBleedTime":"Initial Hit Bleeding Time",
   "hacksaw.midnightconfig.continuationBleedTime":"Consecutive Hit Bleeding Time",
