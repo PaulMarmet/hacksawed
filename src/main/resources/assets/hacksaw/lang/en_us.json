@@ -45,5 +45,8 @@
   "hacksaw.midnightconfig.OtherConfig1":"Other Changes:",
   "hacksaw.midnightconfig.recoilAmount":"Recoil Amount per Enchant Level",
   "hacksaw.midnightconfig.untramplableWetFarmland":"Wet Farmland cant be Trampled",
-  "hacksaw.midnightconfig.echoShardRings":"Echo Shards Ring Out"
+  "hacksaw.midnightconfig.echoShardRings":"Echo Shards Ring Out",
+  "hacksaw.midnightconfig.echoShardRings.tooltip":"When having an echo shard in your inventory,\nthere is a chance they ring out emitting vibrations",
+  "hacksaw.midnightconfig.blocksReleaseSparks":"Blocks Release Sparks",
+  "hacksaw.midnightconfig.blocksReleaseSparks.tooltip":"When mining a block without the correct tool, the block will emit sparks"
 }

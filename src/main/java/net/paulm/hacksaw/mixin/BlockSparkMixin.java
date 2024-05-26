@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.paulm.hacksaw.HacksawConfig;
 import net.paulm.hacksaw.particle.HacksawParticles;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +21,7 @@ public abstract class BlockSparkMixin {
 
 	@Inject(method = "Lnet/minecraft/block/Block;spawnBreakParticles(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V", at = @At(value= "TAIL"))
 	public void addSparks(World world, PlayerEntity player, BlockPos pos, BlockState state, CallbackInfo ci) {
-		if (!player.canHarvest(this.getDefaultState())) {
+		if (!player.canHarvest(this.getDefaultState()) && HacksawConfig.blocksReleaseSparks) {
 			Random r = Random.createLocal();
 			for(int i = 0; i < 20; i++) {
 				double d = pos.getX() + r.nextFloat();

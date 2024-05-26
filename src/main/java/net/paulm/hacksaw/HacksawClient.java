@@ -15,6 +15,6 @@ public class HacksawClient implements ClientModInitializer {
         EntityRendererRegistry.register(HacksawEntities.DYNAMITE_STICK, DynamiteRenderer::new);
         EntityRendererRegistry.register(HacksawEntities.IMPACT_DYNAMITE_STICK, DynamiteRenderer::new);
         EntityRendererRegistry.register(HacksawEntities.BOUNCY_BALL, BouncyBallRenderer::new);
-        ParticleFactoryRegistry.getInstance().register(HacksawParticles.SPARK, WhiteAshParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(HacksawParticles.SPARK, FlameParticle.Factory::new);
     }
 }

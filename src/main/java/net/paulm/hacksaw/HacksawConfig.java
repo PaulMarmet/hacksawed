@@ -35,4 +35,6 @@ public class HacksawConfig extends MidnightConfig {
     @Entry(category = "general") public static boolean untramplableWetFarmland = true;
     @Entry(category = "general") public static boolean echoShardRings = false;
 
+    @Entry(category = "general") public static boolean blocksReleaseSparks = true;
+
 }
