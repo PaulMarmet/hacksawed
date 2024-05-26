@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "hacksaw:item/auto_light_dynamite_stick"
-  }
-}

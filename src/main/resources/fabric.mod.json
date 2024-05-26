@@ -1,9 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "hacksaw",
+	"id": "hacksawed",
 	"version": "${version}",
-	"name": "hacksaw",
-	"description": "I should not be able to mod things. I have too much power now.\nThe only thing stopping me now is my skill issue.",
+	"name": "Hacksawed",
+	"description": "Various tweaks that I wanted to add. With a few features sprinkled on!",
 	"authors": [
 		"Paul Marmet"
 	],
@@ -12,21 +12,21 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/hacksaw/icon.png",
+	"icon": "assets/hacksawed/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.paulm.hacksaw.Hacksaw"
+			"net.paulm.hacksawed.Hacksawed"
 		],
 		"client": [
-			"net.paulm.hacksaw.HacksawClient"
+			"net.paulm.hacksawed.HacksawedClient"
 		],
 		"fabric-datagen": [
-			"net.paulm.hacksaw.HacksawDataGenerator"
+			"net.paulm.hacksawed.HacksawedDataGenerator"
 		]
 	},
 	"mixins": [
-		"hacksaw.mixins.json"
+		"hacksawed.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.14.24",

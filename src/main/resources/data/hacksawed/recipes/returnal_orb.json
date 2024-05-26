@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#E#",
+    "#S#",
+    "#L#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "E": {
+      "item": "minecraft:experience_bottle"
+    },
+    "S": {
+      "item": "hacksawed:bouncy_ball"
+    },
+    "L": {
+      "item": "minecraft:lead"
+    }
+  },
+  "result": {
+    "item": "hacksawed:returnal_orb",
+    "count": 1
+  }
+}
