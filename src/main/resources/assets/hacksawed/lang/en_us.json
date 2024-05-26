@@ -20,6 +20,7 @@
   "entity.hacksawed.returnal_orb": "Returnal Orb",
 
   "enchantment.hacksawed.recoil": "Recoil",
+  "enchantment.hacksawed.recoil.desc": "Launches you back slightly when you fire your crossbow.",
 
   "hacksawed.midnightconfig.title":"Hacksawed Configs",
   "hacksawed.midnightconfig.enum.SelectionType.ALL":"ALL",
