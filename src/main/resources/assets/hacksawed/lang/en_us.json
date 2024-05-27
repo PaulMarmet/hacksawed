@@ -53,5 +53,6 @@
   "hacksawed.midnightconfig.echoShardRings":"Echo Shards Ring Out",
   "hacksawed.midnightconfig.echoShardRings.tooltip":"When having an echo shard in your inventory,\nthere is a chance they ring out emitting vibrations",
   "hacksawed.midnightconfig.blocksReleaseSparks":"Blocks Release Sparks",
-  "hacksawed.midnightconfig.blocksReleaseSparks.tooltip":"When mining a block without the correct tool, the block will emit sparks"
+  "hacksawed.midnightconfig.blocksReleaseSparks.tooltip":"When mining a block without the correct tool, the block will emit sparks",
+  "hacksawed.midnightconfig.iceAndSnowDontMelt":"Ice and Snow don't Melt in Cold Biomes"
 }

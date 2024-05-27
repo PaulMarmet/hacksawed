@@ -9,10 +9,12 @@
     "EchoShardMixin",
     "FarmlandMixin",
     "FireChargeMixin",
+    "IceMixin",
     "ImmuneExplosionMixin",
     "ItemFireproofMixin",
     "ItemImmuneExplosionMixin",
     "ItemUseMixin",
+    "SnowMixin",
     "TorchflowerMixin"
   ],
   "injectors": {
