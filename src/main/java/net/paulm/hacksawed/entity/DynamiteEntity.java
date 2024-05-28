@@ -21,13 +21,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
+import net.paulm.hacksawed.Hacksawed;
 import net.paulm.hacksawed.HacksawedConfig;
 import net.paulm.hacksawed.item.DynamiteItem;
 import net.paulm.hacksawed.item.HacksawedItems;
 
 public class DynamiteEntity extends ThrownItemEntity {
 
-    private int fuseTime;
+    private long explosionTime;
     private boolean onImpact;
     private static final TrackedData<ItemStack> ITEM = DataTracker.registerData(DynamiteEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
@@ -40,6 +41,11 @@ public class DynamiteEntity extends ThrownItemEntity {
         ItemStack tempItem = item.copy();
         tempItem.setCount(1);
         this.setItem(tempItem);
+        if (DynamiteItem.getExplosionTime(tempItem) == -1) {
+            this.setExplosionTime(world.getTime() + HacksawedConfig.dynamiteFuseTime);
+        } else {
+            this.setExplosionTime(DynamiteItem.getExplosionTime(tempItem));
+        }
     }
 
     public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, double x, double y, double z, World world) {
@@ -53,13 +59,12 @@ public class DynamiteEntity extends ThrownItemEntity {
     }
 
     public void tick() {
-        fuseTime--;
         DynamiteItem.summonSpark(this);
         if (this.isOnFire()) {
-            fuseTime--;
-            fuseTime--;
+            explosionTime--;
+            explosionTime--;
         }
-        if (fuseTime <= 0) {
+        if (explosionTime <= getWorld().getTime() && !getOnImpact()) {
             this.explode();
         }
         //Do the tick()
@@ -118,12 +123,12 @@ public class DynamiteEntity extends ThrownItemEntity {
         boolean added = false;
         if (!this.getWorld().isClient()) {
             if (this.getItem() != null) {
-                this.getItem().getOrCreateNbt().putInt("fuse", this.getFuseTime());
+                this.getItem().getOrCreateNbt().putLong("explosionTime", this.getExplosionTime());
                 this.getItem().getOrCreateNbt().putBoolean("isLit", true);
                 added = player.giveItemStack(this.getItem());
             } else {
                 ItemStack item = new ItemStack(getDefaultItem(), 1);
-                item.getOrCreateNbt().putInt("fuse", this.getFuseTime());
+                item.getOrCreateNbt().putLong("explosionTime", this.getExplosionTime());
                 item.getOrCreateNbt().putBoolean("isLit", true);
                 added = player.giveItemStack(item);
             }
@@ -151,8 +156,8 @@ public class DynamiteEntity extends ThrownItemEntity {
         }
     }
 
-    public void setFuseTime(int newFuseTime) {this.fuseTime = newFuseTime;}
-    public int getFuseTime() {return fuseTime;}
+    public void setExplosionTime(long newExplosionTime) {this.explosionTime = newExplosionTime;}
+    public long getExplosionTime() {return explosionTime;}
 
     public void setOnImpact(boolean newOnImpact) {this.onImpact = newOnImpact;}
     public boolean getOnImpact() {return onImpact;}
@@ -160,14 +165,14 @@ public class DynamiteEntity extends ThrownItemEntity {
     @Override
     public void writeCustomDataToNbt(NbtCompound nbt) {
         super.writeCustomDataToNbt(nbt);
-        nbt.putInt("Fuse", this.fuseTime);
+        nbt.putLong("ExplosionTime", this.explosionTime);
         nbt.putBoolean("OnImpact", this.onImpact);
     }
     @Override
     public void readCustomDataFromNbt(NbtCompound nbt) {
         super.readCustomDataFromNbt(nbt);
-        if (nbt.contains("Fuse", NbtElement.NUMBER_TYPE)) {
-            this.fuseTime = nbt.getInt("Fuse");
+        if (nbt.contains("ExplosionTime", NbtElement.NUMBER_TYPE)) {
+            this.explosionTime = nbt.getLong("ExplosionTime");
         }
         if (nbt.contains("OnImpact", NbtElement.BYTE_TYPE)) {
             this.onImpact = nbt.getBoolean("OnImpact");

@@ -33,7 +33,6 @@ public class ImpactDynamiteItem extends DynamiteItem {
             ImpactDynamiteEntity dynamiteEntity = new ImpactDynamiteEntity(HacksawedEntities.IMPACT_DYNAMITE_STICK, user, world, itemStack);
             dynamiteEntity.setItem(itemStack);
             dynamiteEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.2f, 0.75f);
-            dynamiteEntity.setFuseTime(getFuse(itemStack));
             dynamiteEntity.setOnImpact(true);
             world.spawnEntity(dynamiteEntity);
         }
@@ -41,12 +40,6 @@ public class ImpactDynamiteItem extends DynamiteItem {
         if (!user.getAbilities().creativeMode) {
             itemStack.decrement(1);
         }
-    }
-
-
-    @Override
-    public int getFuse(ItemStack stack) {
-        return 1000;
     }
 
     @Override

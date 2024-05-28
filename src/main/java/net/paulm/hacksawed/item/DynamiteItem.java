@@ -28,11 +28,10 @@ public class DynamiteItem extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (isLit(stack)) {
             summonSpark(entity);
-            setFuse(stack, getFuse(stack) - 1);
-            if (getFuse(stack) % 20 == 0 && world.isClient()) {
-                entity.sendMessage(Text.of(getFuse(stack)/20+" seconds left!"));
-            }
-            if (getFuse(stack) <= 0) {
+//            if (getFuse(stack) % 20 == 0 && world.isClient()) {
+//                entity.sendMessage(Text.of(getFuse(stack)/20+" seconds left!"));
+//            }
+            if (getExplosionTime(stack) <= world.getTime()) {
                 this.explode(stack, world, entity);
             }
         }
@@ -69,7 +68,6 @@ public class DynamiteItem extends Item {
             DynamiteEntity dynamiteEntity = new DynamiteEntity(HacksawedEntities.DYNAMITE_STICK, user, world, itemStack);
             dynamiteEntity.setItem(itemStack);
             dynamiteEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 1.2f, 0.75f);
-            dynamiteEntity.setFuseTime(getFuse(itemStack));
             dynamiteEntity.setOnImpact(false);
             world.spawnEntity(dynamiteEntity);
         }
@@ -91,16 +89,16 @@ public class DynamiteItem extends Item {
         itemStack.getOrCreateNbt().putBoolean("isLit", val);
     }
 
-    public int getFuse(ItemStack stack) {
-        if (stack.getNbt() == null || !stack.getNbt().contains("fuse"))
+    public static long getExplosionTime(ItemStack stack) {
+        if (stack.getNbt() == null || !stack.getNbt().contains("explosionTime"))
         {
-            setFuse(stack, HacksawedConfig.dynamiteFuseTime);
+            return -1;
         }
-        return stack.getOrCreateNbt().getInt("fuse");
+        return stack.getOrCreateNbt().getLong("explosionTime");
     }
 
-    public void setFuse(ItemStack stack, int fuseLength) {
-        stack.getOrCreateNbt().putInt("fuse", fuseLength);
+    public static void setExplosionTime(ItemStack stack, long newExplosionTime) {
+        stack.getOrCreateNbt().putLong("explosionTime", newExplosionTime);
     }
 
     public void explode(ItemStack stack, World world, Entity entity) {
@@ -114,7 +112,6 @@ public class DynamiteItem extends Item {
 
     public static void summonSpark(Entity entity) {
         Box box = entity.getBoundingBox();
-        Vec3d vec3d = entity.getVelocity();
         Random r = Random.createLocal();
         double r1 = r.nextFloat()*box.getXLength();
         double r2 = r.nextFloat()*box.getYLength();
