@@ -42,9 +42,9 @@ public class BouncyBallEntity extends ThrownItemEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ITEM, new ItemStack(getDefaultItem()));
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(ITEM, new ItemStack(this.getDefaultItem(), 1));
     }
 
 
@@ -73,7 +73,7 @@ public class BouncyBallEntity extends ThrownItemEntity {
     }
 
     public void stillAct() {
-        if (this.getItem() != null) {
+        if (this.getStack() != null) {
             this.returnToItem();
         }
     }
@@ -117,8 +117,8 @@ public class BouncyBallEntity extends ThrownItemEntity {
     }
 
     public void returnToItem() {
-        if (this.getItem() != null && this.getItem().getCount() != 0) {
-            this.dropStack(this.getItem());
+        if (this.getStack() != null && this.getStack().getCount() != 0) {
+            this.dropStack(this.getStack());
         } else {
             this.dropStack(new ItemStack(this.getDefaultItem(), 1));
         }
@@ -134,8 +134,8 @@ public class BouncyBallEntity extends ThrownItemEntity {
     public ActionResult interact(PlayerEntity player, Hand hand) {
         boolean added = false;
         if (!this.getWorld().isClient()) {
-            if (this.getItem() != null && !this.getItem().isEmpty()) {
-                added = player.giveItemStack(this.getItem());
+            if (this.getStack() != null && !this.getStack().isEmpty()) {
+                added = player.giveItemStack(this.getStack());
             } else {
                 added = player.giveItemStack(new ItemStack(this.getDefaultItem(), 1));
             }

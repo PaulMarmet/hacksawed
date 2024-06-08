@@ -16,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.paulm.hacksawed.HacksawedConfig;
+import net.paulm.hacksawed.component.HacksawedComponents;
 import net.paulm.hacksawed.entity.DynamiteEntity;
 import net.paulm.hacksawed.entity.HacksawedEntities;
 import net.paulm.hacksawed.particle.HacksawedParticles;
@@ -26,12 +27,12 @@ public class DynamiteItem extends Item {
     }
 
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (isLit(stack)) {
+        if (stack.get(HacksawedComponents.IS_LIT)) {
             summonSpark(entity);
 //            if (getFuse(stack) % 20 == 0 && world.isClient()) {
 //                entity.sendMessage(Text.of(getFuse(stack)/20+" seconds left!"));
 //            }
-            if (getExplosionTime(stack) <= world.getTime()) {
+            if (stack.get(HacksawedComponents.EXPLOSION_TIME) <= world.getTime() && stack.get(HacksawedComponents.EXPLOSION_TIME) != 0) {
                 this.explode(stack, world, entity);
             }
         }
@@ -51,7 +52,7 @@ public class DynamiteItem extends Item {
     }
 
     public boolean canThrow(PlayerEntity user, ItemStack itemStack, Hand hand) {
-        if (isLit(itemStack)) {
+        if (Boolean.TRUE.equals(itemStack.get(HacksawedComponents.IS_LIT))) {
             return true;
         }
         if (hand == Hand.MAIN_HAND) {
@@ -77,30 +78,6 @@ public class DynamiteItem extends Item {
         }
     }
 
-    public boolean isLit(ItemStack itemStack) {
-        if (itemStack.getNbt() == null || !itemStack.getNbt().contains("isLit"))
-        {
-            itemStack.getOrCreateNbt().putBoolean("isLit", false);
-        }
-        return itemStack.getOrCreateNbt().getBoolean("isLit");
-    }
-
-    public void setLit(ItemStack itemStack, boolean val) {
-        itemStack.getOrCreateNbt().putBoolean("isLit", val);
-    }
-
-    public static long getExplosionTime(ItemStack stack) {
-        if (stack.getNbt() == null || !stack.getNbt().contains("explosionTime"))
-        {
-            return -1;
-        }
-        return stack.getOrCreateNbt().getLong("explosionTime");
-    }
-
-    public static void setExplosionTime(ItemStack stack, long newExplosionTime) {
-        stack.getOrCreateNbt().putLong("explosionTime", newExplosionTime);
-    }
-
     public void explode(ItemStack stack, World world, Entity entity) {
         if (!entity.getWorld().isClient) {
             entity.getWorld().createExplosion(null, entity.getX(), entity.getBodyY(0.0625), entity.getZ(), 3.0f, World.ExplosionSourceType.MOB);
@@ -113,9 +90,9 @@ public class DynamiteItem extends Item {
     public static void summonSpark(Entity entity) {
         Box box = entity.getBoundingBox();
         Random r = Random.createLocal();
-        double r1 = r.nextFloat()*box.getXLength();
-        double r2 = r.nextFloat()*box.getYLength();
-        double r3 = r.nextFloat()*box.getZLength();
+        double r1 = r.nextFloat()*box.getLengthX();
+        double r2 = r.nextFloat()*box.getLengthY();
+        double r3 = r.nextFloat()*box.getLengthZ();
 
         double d = box.minX + r1;
         double e = box.minY + r2;

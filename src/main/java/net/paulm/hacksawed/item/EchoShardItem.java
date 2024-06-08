@@ -84,14 +84,14 @@ public class EchoShardItem extends Item {
         List<Entity> list = world.getOtherEntities(entity, new Box(k, r, t, l, s, u));
         Vec3d vec3d = new Vec3d(entity.getX(), entity.getY(), entity.getZ());
         for (int v = 0; v < list.size(); ++v) {
-            //PlayerEntity playerEntity;
             double z;
             double y;
             double x;
             double aa;
             double w;
             Entity target = list.get(v);
-            if (target.isImmuneToExplosion() || !((w = Math.sqrt(target.squaredDistanceTo(vec3d)) / (double)8) <= 1.0) || (aa = Math.sqrt((x = target.getX() - entity.getX()) * x + (y = (target instanceof TntEntity ? target.getY() : target.getEyeY()) - entity.getY()) * y + (z = target.getZ() - entity.getZ()) * z)) == 0.0) continue;
+            //there was 'target.isImmuneToExplosion() || ' in the if statement but i removed it because i didnt want to bother adding an explosion
+            if (!((w = Math.sqrt(target.squaredDistanceTo(vec3d)) / (double)8) <= 1.0) || (aa = Math.sqrt((x = target.getX() - entity.getX()) * x + (y = (target instanceof TntEntity ? target.getY() : target.getEyeY()) - entity.getY()) * y + (z = target.getZ() - entity.getZ()) * z)) == 0.0) continue;
             x /= aa;
             y /= aa;
             z /= aa;

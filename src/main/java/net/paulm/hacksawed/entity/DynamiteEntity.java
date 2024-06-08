@@ -23,6 +23,7 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.paulm.hacksawed.Hacksawed;
 import net.paulm.hacksawed.HacksawedConfig;
+import net.paulm.hacksawed.component.HacksawedComponents;
 import net.paulm.hacksawed.item.DynamiteItem;
 import net.paulm.hacksawed.item.HacksawedItems;
 
@@ -30,7 +31,6 @@ public class DynamiteEntity extends ThrownItemEntity {
 
     private long explosionTime;
     private boolean onImpact;
-    private static final TrackedData<ItemStack> ITEM = DataTracker.registerData(DynamiteEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
     public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, World world) {
         super(entityType, world);
@@ -41,21 +41,15 @@ public class DynamiteEntity extends ThrownItemEntity {
         ItemStack tempItem = item.copy();
         tempItem.setCount(1);
         this.setItem(tempItem);
-        if (DynamiteItem.getExplosionTime(tempItem) == -1) {
+        if (tempItem.get(HacksawedComponents.EXPLOSION_TIME) == 0) {
             this.setExplosionTime(world.getTime() + HacksawedConfig.dynamiteFuseTime);
         } else {
-            this.setExplosionTime(DynamiteItem.getExplosionTime(tempItem));
+            this.setExplosionTime(tempItem.get(HacksawedComponents.EXPLOSION_TIME));
         }
     }
 
     public DynamiteEntity(EntityType<? extends DynamiteEntity> entityType, double x, double y, double z, World world) {
         super(entityType, x, y, z, world);
-    }
-
-    @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(ITEM, new ItemStack(getDefaultItem()));
     }
 
     public void tick() {
@@ -64,7 +58,7 @@ public class DynamiteEntity extends ThrownItemEntity {
             explosionTime--;
             explosionTime--;
         }
-        if (explosionTime <= getWorld().getTime() && !getOnImpact()) {
+        if (explosionTime <= this.getWorld().getTime() && !getOnImpact()) {
             this.explode();
         }
         //Do the tick()
@@ -122,14 +116,14 @@ public class DynamiteEntity extends ThrownItemEntity {
     public ActionResult interact(PlayerEntity player, Hand hand) {
         boolean added = false;
         if (!this.getWorld().isClient()) {
-            if (this.getItem() != null) {
-                this.getItem().getOrCreateNbt().putLong("explosionTime", this.getExplosionTime());
-                this.getItem().getOrCreateNbt().putBoolean("isLit", true);
-                added = player.giveItemStack(this.getItem());
+            if (this.getStack() != null) {
+                this.getStack().set(HacksawedComponents.EXPLOSION_TIME, this.getExplosionTime());
+                this.getStack().set(HacksawedComponents.IS_LIT, true);
+                added = player.giveItemStack(this.getStack());
             } else {
                 ItemStack item = new ItemStack(getDefaultItem(), 1);
-                item.getOrCreateNbt().putLong("explosionTime", this.getExplosionTime());
-                item.getOrCreateNbt().putBoolean("isLit", true);
+                item.set(HacksawedComponents.EXPLOSION_TIME, this.getExplosionTime());
+                item.set(HacksawedComponents.IS_LIT, true);
                 added = player.giveItemStack(item);
             }
         }

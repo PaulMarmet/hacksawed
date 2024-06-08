@@ -29,7 +29,9 @@ public class HacksawedConfig extends MidnightConfig {
     //Item Changes Configs
     @Comment(category = "general") public static Comment ItemConfig1;
     @Entry(category = "general") public static SelectionType explosionProofItems = SelectionType.ALL;
+    @Entry(category = "general") public static boolean explosionProofBlastProt = true;
     @Entry(category = "general") public static SelectionType fireProofItems = SelectionType.SOME;
+    @Entry(category = "general") public static boolean fireProofFireProt = true;
 
     //Other Configs
     @Comment(category = "general") public static Comment OtherConfig1;

@@ -1,31 +1,20 @@
 package net.paulm.hacksawed.entity;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MovementType;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
-import net.paulm.hacksawed.Hacksawed;
 import net.paulm.hacksawed.HacksawedConfig;
 import net.paulm.hacksawed.item.HacksawedItems;
 
@@ -41,7 +30,7 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
 
     public ReturnalOrbEntity(EntityType<? extends ReturnalOrbEntity> entityType, LivingEntity owner, World world, ItemStack item) {
         super(entityType, owner, world, item);
-        if (this.getItem().isEmpty()) {
+        if (this.getStack().isEmpty()) {
             this.setItem(new ItemStack(this.getDefaultItem()));
         }
     }
@@ -51,9 +40,9 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
     }
 
     @Override
-    protected void initDataTracker() {
-        super.initDataTracker();
-        this.dataTracker.startTracking(RETURN, false);
+    protected void initDataTracker(DataTracker.Builder builder) {
+        super.initDataTracker(builder);
+        builder.add(RETURN, false);
     }
 
     public boolean getReturn() {
@@ -79,7 +68,7 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
     }
 
     public void stillAct() {
-        if (this.getItem() != null) {
+        if (this.getStack() != null) {
             if (this.getOwner() != null) {
                 this.setReturn(true);
             } else {
@@ -111,14 +100,13 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) {
-        if (this.getItem() != null && this.getOwner() != null) {
+        if (this.getStack() != null && this.getOwner() != null) {
             boolean added = false;
-            if (!this.getWorld().isClient() && entityHitResult.getEntity() instanceof PlayerEntity && entityHitResult.getEntity().getUuid() == this.getOwner().getUuid()) {
-                Hacksawed.LOGGER.info(String.valueOf(this.getItem()));
-                if (this.getItem().isOf(Items.AIR) || this.getItem().getCount() < 1) {
+            if (!this.getWorld().isClient() && entityHitResult.getEntity() == this.getOwner()) {
+                if (this.getStack().isOf(Items.AIR) || this.getStack().getCount() < 1) {
                     added = ((PlayerEntity) entityHitResult.getEntity()).giveItemStack(new ItemStack(this.getDefaultItem()));
                 } else {
-                    added = ((PlayerEntity) entityHitResult.getEntity()).giveItemStack(this.getItem());
+                    added = ((PlayerEntity) entityHitResult.getEntity()).giveItemStack(this.getStack());
                 }
             }
             if (added) {
@@ -126,8 +114,8 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
                 return;
             }
         }
-        if (this.getItem() != null && entityHitResult.getEntity() instanceof LivingEntity) {
-            entityHitResult.getEntity().damage(entityHitResult.getEntity().getDamageSources().create(DamageTypes.TRIDENT), this.getItem().getDamage()+1);
+        if (this.getStack() != null && entityHitResult.getEntity() instanceof LivingEntity) {
+            entityHitResult.getEntity().damage(entityHitResult.getEntity().getDamageSources().create(DamageTypes.TRIDENT), this.getStack().getDamage()+1);
             entityHitResult.getEntity().addVelocity(this.getVelocity().multiply(HacksawedConfig.returnalOrbVelTransfer));
             this.setReturn(true);
             this.setVelocity(0, 0, 0);

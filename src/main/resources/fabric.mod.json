@@ -8,28 +8,26 @@
 		"Paul Marmet"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/hacksawed/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.paulm.hacksawed.Hacksawed"
+          "net.paulm.hacksawed.Hacksawed"
 		],
 		"client": [
-			"net.paulm.hacksawed.HacksawedClient"
+          "net.paulm.hacksawed.HacksawedClient"
 		],
 		"fabric-datagen": [
-			"net.paulm.hacksawed.HacksawedDataGenerator"
+          "net.paulm.hacksawed.HacksawedDataGenerator"
 		]
 	},
 	"mixins": [
 		"hacksawed.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.24",
+		"fabricloader": ">=0.15.0",
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"

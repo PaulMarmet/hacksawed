@@ -41,9 +41,4 @@ public class ImpactDynamiteItem extends DynamiteItem {
             itemStack.decrement(1);
         }
     }
-
-    @Override
-    public boolean isLit(ItemStack itemStack) {
-        return false;
-    }
 }

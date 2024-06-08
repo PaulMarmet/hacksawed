@@ -1,5 +1,7 @@
 package net.paulm.hacksawed.mixin;
 
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.paulm.hacksawed.HacksawedConfig;
@@ -18,7 +20,12 @@ public abstract class ItemImmuneExplosionMixin extends ImmuneExplosionMixin{
 		if (HacksawedConfig.explosionProofItems == HacksawedConfig.SelectionType.ALL) {
 			cir.setReturnValue(true);
 		} else if (HacksawedConfig.explosionProofItems == HacksawedConfig.SelectionType.SOME) {
-			cir.setReturnValue(cir.getReturnValue() || this.getStack().isIn(HacksawedItemTags.EXPLOSION_PROOF));
+			boolean hasTag = this.getStack().isIn(HacksawedItemTags.EXPLOSION_PROOF);
+			boolean hasBlastProt = this.getStack().hasEnchantments() && EnchantmentHelper.getLevel(Enchantments.BLAST_PROTECTION, this.getStack()) > 0;
+			cir.setReturnValue(cir.getReturnValue() || hasTag || (hasBlastProt && HacksawedConfig.explosionProofBlastProt));
+		} else {
+			boolean hasBlastProt = this.getStack().hasEnchantments() && EnchantmentHelper.getLevel(Enchantments.BLAST_PROTECTION, this.getStack()) > 0;
+			cir.setReturnValue(cir.getReturnValue() || (hasBlastProt && HacksawedConfig.explosionProofBlastProt));
 		}
 	}
 

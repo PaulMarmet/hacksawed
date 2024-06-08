@@ -35,8 +35,8 @@ public class ImpactDynamiteEntity extends DynamiteEntity {
     @Override
     public ActionResult interact(PlayerEntity player, Hand hand) {
         if (!this.getWorld().isClient()) {
-            if (this.getItem() != null) {
-                player.giveItemStack(this.getItem());
+            if (this.getStack() != null) {
+                player.giveItemStack(this.getStack());
             } else {
                 player.giveItemStack(new ItemStack(getDefaultItem(), 1));
             }

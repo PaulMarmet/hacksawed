@@ -6,6 +6,10 @@
   "item.hacksawed.bouncy_ball": "Bouncy Ball",
   "item.hacksawed.returnal_orb": "Returnal Orb",
 
+  "tag.item.hacksawed.enderman_safe": "Enderman Safe",
+  "tag.item.hacksawed.explosion_proof": "Explosion Proof",
+  "tag.item.hacksawed.fire_proof": "Fire Proof",
+
   "itemgroup.hacksawed": "Hacksawed",
 
   "effect.hacksawed.bleeding": "Bleeding",
@@ -45,8 +49,12 @@
   "hacksawed.midnightconfig.ItemConfig1":"Item Changes:",
   "hacksawed.midnightconfig.explosionProofItems":"Items are Immune to Explosions",
   "hacksawed.midnightconfig.explosionProofItems.tooltip":"When set to \"SOME\",\nSet specific items to be explosion proof using the #hacksawed:explosion_proof tag",
+  "hacksawed.midnightconfig.explosionProofBlastProt":"Blast Protection Items are Immune to Explosions",
+  "hacksawed.midnightconfig.explosionProofBlastProt.tooltip":"Makes all items with blast protection immune to explosions.\nWhen true, applies regardless of the state of blast proof items",
   "hacksawed.midnightconfig.fireProofItems":"Items are Immune to Fire",
   "hacksawed.midnightconfig.fireProofItems.tooltip":"When set to \"SOME\",\nSet specific items to be fire proof using the #hacksawed:fire_proof tag",
+  "hacksawed.midnightconfig.fireProofFireProt":"Fire Protection Items are Immune to Fire",
+  "hacksawed.midnightconfig.fireProofFireProt.tooltip":"Makes all items with fire protection immune to fire/lava.\nWhen true, applies regardless of the state of fireproof items.",
   "hacksawed.midnightconfig.OtherConfig1":"Other Changes:",
   "hacksawed.midnightconfig.recoilAmount":"Recoil Amount per Enchant Level",
   "hacksawed.midnightconfig.untramplableWetFarmland":"Wet Farmland cant be Trampled",

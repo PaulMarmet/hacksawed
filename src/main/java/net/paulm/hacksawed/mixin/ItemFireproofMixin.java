@@ -1,5 +1,7 @@
 package net.paulm.hacksawed.mixin;
 
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.paulm.hacksawed.HacksawedConfig;
@@ -20,7 +22,12 @@ public abstract class ItemFireproofMixin {
 		if (HacksawedConfig.fireProofItems == HacksawedConfig.SelectionType.ALL) {
 			cir.setReturnValue(true);
 		} else if (HacksawedConfig.fireProofItems == HacksawedConfig.SelectionType.SOME) {
-			cir.setReturnValue(cir.getReturnValue() || this.getStack().isIn(HacksawedItemTags.FIREPROOF));
+			boolean hasTag = this.getStack().isIn(HacksawedItemTags.FIREPROOF);
+			boolean hasFireProt = this.getStack().hasEnchantments() && EnchantmentHelper.getLevel(Enchantments.FIRE_PROTECTION, this.getStack()) > 0;
+			cir.setReturnValue(cir.getReturnValue() || hasTag || (hasFireProt && HacksawedConfig.fireProofFireProt));
+		} else {
+			boolean hasFireProt = this.getStack().hasEnchantments() && EnchantmentHelper.getLevel(Enchantments.FIRE_PROTECTION, this.getStack()) > 0;
+			cir.setReturnValue(cir.getReturnValue() || (hasFireProt && HacksawedConfig.fireProofFireProt));
 		}
 	}
 
