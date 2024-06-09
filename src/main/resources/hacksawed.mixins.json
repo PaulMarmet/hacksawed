@@ -16,6 +16,7 @@
     "ItemImmuneExplosionMixin",
     "ItemUseMixin",
     "SnowMixin",
+    "SweetBerryBushMixin",
     "TorchflowerMixin"
   ],
   "injectors": {

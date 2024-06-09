@@ -19,7 +19,7 @@ public abstract class BlockSparkMixin {
 
 	@Shadow public abstract BlockState getDefaultState();
 
-	@Inject(method = "Lnet/minecraft/block/Block;spawnBreakParticles(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V", at = @At(value= "TAIL"))
+	@Inject(method = "spawnBreakParticles(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)V", at = @At(value= "TAIL"))
 	public void addSparks(World world, PlayerEntity player, BlockPos pos, BlockState state, CallbackInfo ci) {
 		if (!player.canHarvest(this.getDefaultState()) && HacksawedConfig.blocksReleaseSparks) {
 			Random r = Random.createLocal();

@@ -17,7 +17,7 @@ public abstract class ItemFireproofMixin {
 
 	@Shadow public abstract ItemStack getStack();
 
-	@Inject(method = "Lnet/minecraft/entity/ItemEntity;isFireImmune()Z", at = @At(value="RETURN"), cancellable = true)
+	@Inject(method = "isFireImmune()Z", at = @At(value="RETURN"), cancellable = true)
 	public void isImmuneToFire(CallbackInfoReturnable<Boolean> cir) {
 		if (HacksawedConfig.fireProofItems == HacksawedConfig.SelectionType.ALL) {
 			cir.setReturnValue(true);

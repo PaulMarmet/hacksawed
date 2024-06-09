@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class IceMixin {
     @Shadow protected abstract void melt(BlockState state, World world, BlockPos pos);
 
-    @Redirect(method = "Lnet/minecraft/block/IceBlock;randomTick(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/random/Random;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/IceBlock;melt(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"))
+    @Redirect(method = "randomTick(Lnet/minecraft/block/BlockState;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/random/Random;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/IceBlock;melt(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"))
     private void randomTick(IceBlock instance, BlockState state, World world, BlockPos pos) {
         if (!world.getBiome(pos).isIn(BiomeTags.SPAWNS_COLD_VARIANT_FROGS) || !HacksawedConfig.iceAndSnowDontMelt) {
             this.melt(state, world, pos);

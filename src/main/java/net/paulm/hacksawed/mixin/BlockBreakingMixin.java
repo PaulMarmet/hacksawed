@@ -29,7 +29,7 @@ public abstract class BlockBreakingMixin {
 
     @Shadow @Nullable public ClientWorld world;
 
-    @Inject(method = "Lnet/minecraft/client/MinecraftClient;handleBlockBreaking(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/ParticleManager;addBlockBreakingParticles(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)V"))
+    @Inject(method = "handleBlockBreaking(Z)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/particle/ParticleManager;addBlockBreakingParticles(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/Direction;)V"))
     private void addSparks(boolean breaking, CallbackInfo ci) {
         if (HacksawedConfig.blocksReleaseSparks) {
             BlockPos pos = ((BlockHitResult) this.crosshairTarget).getBlockPos();

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(EndermanEntity.class)
 public abstract class EndermanMixin {
 
-    @Redirect(method = "Lnet/minecraft/entity/mob/EndermanEntity;isPlayerStaring(Lnet/minecraft/entity/player/PlayerEntity;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
+    @Redirect(method = "isPlayerStaring(Lnet/minecraft/entity/player/PlayerEntity;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;isOf(Lnet/minecraft/item/Item;)Z"))
     private boolean isInTag(ItemStack itemStack, Item item) {
         return (itemStack.isIn(HacksawedItemTags.ENDERMAN_SAFE) && HacksawedConfig.moreEndermanSafeItems) || itemStack.isOf(Blocks.CARVED_PUMPKIN.asItem());
     }

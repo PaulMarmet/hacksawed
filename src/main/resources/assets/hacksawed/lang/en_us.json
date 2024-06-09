@@ -64,5 +64,6 @@
   "hacksawed.midnightconfig.blocksReleaseSparks.tooltip":"When mining a block without the correct tool, the block will emit sparks",
   "hacksawed.midnightconfig.iceAndSnowDontMelt":"Ice and Snow don't Melt in Cold Biomes",
   "hacksawed.midnightconfig.moreEndermanSafeItems":"More Enderman Safe Helmets",
-  "hacksawed.midnightconfig.moreEndermanSafeItems.tooltip":"By default, this only adds the Dragon Head, however, others can be added using the #hacksawed:enderman_safe tag."
+  "hacksawed.midnightconfig.moreEndermanSafeItems.tooltip":"By default, this only adds the Dragon Head, however, others can be added using the #hacksawed:enderman_safe tag.",
+  "hacksawed.midnightconfig.sneakSweetBerries":"Players Sneak through Sweet Berry Bushes Without Harm"
 }
