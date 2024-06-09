@@ -13,6 +13,8 @@
   "itemgroup.hacksawed": "Hacksawed",
 
   "effect.hacksawed.bleeding": "Bleeding",
+  "effect.hacksawed.bleeding.desc": "Deals damage every second, getting twice as fast every level.\nAt a high enough duration, the level increases, and the duration gets shortened accordingly.",
+  "effect.hacksawed.bleeding.description": "Deals damage every second, getting twice as fast every level.\nAt a high enough duration, the level increases, and the duration gets shortened accordingly.",
 
   "death.attack.bleeding": "%s bled to death",
   "death.attack.bleeding.item": "%s bled to death whilst trying to escape %s and their %s",
