@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hacksawed:auto_light_dynamite_stick",
+      "hacksawed:dyna_to_tnt"
+    ]
+  },
+  "criteria": {
+    "has_dynamite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["hacksawed:dynamite"]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hacksawed:auto_light_dynamite_stick"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dynamite",
+      "has_the_recipe"
+    ]
+  ]
+}

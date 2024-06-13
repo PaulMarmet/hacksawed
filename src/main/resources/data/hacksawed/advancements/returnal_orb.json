@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hacksawed:returnal_orb"
+    ]
+  },
+  "criteria": {
+    "has_ball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["minecraft:bouncy_ball"]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hacksawed:returnal_orb"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_ball",
+      "has_the_recipe"
+    ]
+  ]
+}
