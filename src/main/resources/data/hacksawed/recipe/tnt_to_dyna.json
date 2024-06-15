@@ -1,12 +1,14 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "dynamites",
   "ingredients": [
     {
       "item": "minecraft:tnt"
     }
   ],
   "result": {
-    "item": "hacksawed:dynamite_stick",
+    "id": "hacksawed:dynamite_stick",
     "count": 4
   }
 }

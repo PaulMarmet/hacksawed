@@ -25,7 +25,7 @@ public class FireChargeMixin extends ItemUseMixin{
 		world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.NEUTRAL, 0.5f, 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
 		if (!world.isClient) {
 			Vec3d vec = user.getRotationVec(1.0f);
-			FireballEntity fireballEntity = new FireballEntity(world, (LivingEntity)user, vec.getX(), vec.getY(), vec.getZ(), 1);
+			FireballEntity fireballEntity = new FireballEntity(world, (LivingEntity)user, vec, 1);
 			fireballEntity.setPosition(user.getEyePos());
 			world.spawnEntity(fireballEntity);
 		}

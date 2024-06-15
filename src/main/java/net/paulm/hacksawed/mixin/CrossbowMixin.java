@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.RangedWeaponItem;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -22,9 +23,10 @@ import java.util.List;
 public class CrossbowMixin {
 
 	@Inject(method = "shootAll", at = @At(value="INVOKE", target="Lnet/minecraft/item/RangedWeaponItem;shoot(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/entity/projectile/ProjectileEntity;IFFFLnet/minecraft/entity/LivingEntity;)V"))
-	private void recoil(World world, LivingEntity shooter, Hand hand, ItemStack stack, List<ItemStack> projectiles, float speed, float divergence, boolean critical, LivingEntity target, CallbackInfo ci) {
+	private void recoil(ServerWorld world, LivingEntity shooter, Hand hand, ItemStack stack, List<ItemStack> projectiles, float speed, float divergence, boolean critical, LivingEntity target, CallbackInfo ci) {
 		if (!stack.hasEnchantments()) {return;}
-		int recoilLvl = EnchantmentHelper.getLevel(HacksawedEnchantments.RECOIL, stack);
+		//int recoilLvl = EnchantmentHelper.getLevel(HacksawedEnchantments.RECOIL, stack);
+		int recoilLvl = 2;
 		if (recoilLvl > 0) {
 			Vec3d iVec = (new Vec3d(shooter.getRotationVec(1.0f).toVector3f())).multiply(recoilLvl* HacksawedConfig.recoilAmount);
 			shooter.addVelocity(iVec.x, iVec.y, iVec.z);

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "pattern": [
     "iii",
     "I i",
@@ -17,7 +18,7 @@
     }
   },
   "result": {
-    "item": "hacksawed:hacksaw",
+    "id": "hacksawed:hacksaw",
     "count": 1
   }
 }

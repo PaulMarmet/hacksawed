@@ -11,10 +11,10 @@ import net.paulm.hacksawed.Hacksawed;
 
 public class HacksawedItemGroups {
     //Creates the tab in the creative menu
-    public static final ItemGroup HACKSAW_GROUP = Registry.register(Registries.ITEM_GROUP, new Identifier(Hacksawed.MOD_ID, "hacksawed"), FabricItemGroup.builder().displayName(Text.translatable("itemgroup.hacksawed")).icon(() -> new ItemStack((HacksawedItems.HACKSAW))).entries(((displayContext, entries) -> {
+    public static final ItemGroup HACKSAW_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(Hacksawed.MOD_ID, "hacksawed"), FabricItemGroup.builder().displayName(Text.translatable("itemgroup.hacksawed")).icon(() -> new ItemStack((HacksawedItems.HACKSAW))).entries(((displayContext, entries) -> {
         //Now theoretically, they appear in order in the menu depending on the order here
-        //But im lazy so all items, then all blocks
-        //Here goes all the items:
+        //But im lazy so all item, then all blocks
+        //Here goes all the item:
         entries.add(HacksawedItems.HACKSAW);
         entries.add(HacksawedItems.DYNAMITE_STICK);
         entries.add(HacksawedItems.IMPACT_DYNAMITE_STICK);

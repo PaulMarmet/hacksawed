@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
   "ingredients": [
     {
       "item": "minecraft:slime_ball"
@@ -9,7 +10,7 @@
     }
   ],
   "result": {
-    "item": "hacksawed:bouncy_ball",
+    "id": "hacksawed:bouncy_ball",
     "count": 1
   }
 }

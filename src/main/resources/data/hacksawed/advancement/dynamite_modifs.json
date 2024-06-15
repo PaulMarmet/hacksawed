@@ -12,7 +12,7 @@
       "conditions": {
         "items": [
           {
-            "items": ["hacksawed:dynamite"]
+            "items": ["hacksawed:dynamite_stick"]
           }
         ]
       }

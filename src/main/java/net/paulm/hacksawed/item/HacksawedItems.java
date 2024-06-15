@@ -8,7 +8,7 @@ import net.paulm.hacksawed.Hacksawed;
 import net.paulm.hacksawed.component.HacksawedComponents;
 
 public class HacksawedItems {
-    //This is where you place the items
+    //This is where you place the item
     //Dont forget to add to the ItemGroups
     //And add to the lang file
     //And to the dataGen
@@ -22,12 +22,12 @@ public class HacksawedItems {
     public static final Item BOUNCY_BALL = registerItem("bouncy_ball", new BouncyBallItem(new Item.Settings().maxCount(8)));
     public static final Item RETURNAL_ORB = registerItem("returnal_orb", new ReturnalOrbItem(new Item.Settings().maxCount(8)));
 
-    //This registers the items, no need to touch
+    //This registers the item, no need to touch
     private static Item registerItem(String name, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(Hacksawed.MOD_ID, name), item);
+        return Registry.register(Registries.ITEM, Identifier.of(Hacksawed.MOD_ID, name), item);
     }
     public static void  registerModItems() {
-        //Hacksaw.LOGGER.info("Registering items for "+Hacksaw.MOD_ID);
+        //Hacksaw.LOGGER.info("Registering item for "+Hacksaw.MOD_ID);
 
         //ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addItemsToIngredientTabItemGroup);
     }

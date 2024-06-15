@@ -5,6 +5,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.paulm.hacksawed.HacksawedConfig;
+import net.paulm.hacksawed.enchantment.HacksawedEnchantTags;
 import net.paulm.hacksawed.item.HacksawedItemTags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,11 +22,11 @@ public abstract class ItemImmuneExplosionMixin extends ImmuneExplosionMixin{
 			cir.setReturnValue(true);
 		} else if (HacksawedConfig.explosionProofItems == HacksawedConfig.SelectionType.SOME) {
 			boolean hasTag = this.getStack().isIn(HacksawedItemTags.EXPLOSION_PROOF);
-			boolean hasBlastProt = this.getStack().hasEnchantments() && EnchantmentHelper.getLevel(Enchantments.BLAST_PROTECTION, this.getStack()) > 0;
-			cir.setReturnValue(cir.getReturnValue() || hasTag || (hasBlastProt && HacksawedConfig.explosionProofBlastProt));
+			boolean isProtected = EnchantmentHelper.hasAnyEnchantmentsIn(this.getStack(), HacksawedEnchantTags.EXPLOSION_RELATED);
+			cir.setReturnValue(cir.getReturnValue() || hasTag || (isProtected && HacksawedConfig.explosionProofBlastProt));
 		} else {
-			boolean hasBlastProt = this.getStack().hasEnchantments() && EnchantmentHelper.getLevel(Enchantments.BLAST_PROTECTION, this.getStack()) > 0;
-			cir.setReturnValue(cir.getReturnValue() || (hasBlastProt && HacksawedConfig.explosionProofBlastProt));
+			boolean isProtected = EnchantmentHelper.hasAnyEnchantmentsIn(this.getStack(), HacksawedEnchantTags.EXPLOSION_RELATED);
+			cir.setReturnValue(cir.getReturnValue() || (isProtected && HacksawedConfig.explosionProofBlastProt));
 		}
 	}
 

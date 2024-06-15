@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class HacksawedEnchantments {
 
-    public static Enchantment RECOIL = Registry.register(Registries.ENCHANTMENT, new Identifier(Hacksawed.MOD_ID, "recoil"), new Enchantment(new Enchantment.Properties(ItemTags.CROSSBOW_ENCHANTABLE, Optional.ofNullable(ItemTags.CROSSBOW_ENCHANTABLE), 2, 2, Enchantment.leveledCost(15, 5), Enchantment.leveledCost(30, 10), 3, FeatureSet.empty(), new EquipmentSlot[]{EquipmentSlot.MAINHAND})));
+    public static Enchantment RECOIL;
     //Registries.ENCHANTMENT.get(new Identifier(Hacksawed.MOD_ID, "recoil"));
     public static void registerHacksawEnchantments() {
 

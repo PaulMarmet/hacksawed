@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import net.paulm.hacksawed.Hacksawed;
 
 public class HacksawedParticles {
-    public static final SimpleParticleType SPARK = Registry.register(Registries.PARTICLE_TYPE, new Identifier(Hacksawed.MOD_ID, "spark"), FabricParticleTypes.simple());
+    public static final SimpleParticleType SPARK = Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Hacksawed.MOD_ID, "spark"), FabricParticleTypes.simple());
 
 
     public static void  registerModParticles() {

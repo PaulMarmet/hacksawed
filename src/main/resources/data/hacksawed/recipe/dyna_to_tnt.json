@@ -1,5 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "dynamites",
   "pattern": [
     "##",
     "##"
@@ -10,7 +12,7 @@
     }
   },
   "result": {
-    "item": "minecraft:tnt",
+    "id": "minecraft:tnt",
     "count": 1
   }
 }

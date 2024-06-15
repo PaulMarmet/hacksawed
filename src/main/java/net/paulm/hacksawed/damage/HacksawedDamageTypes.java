@@ -11,7 +11,7 @@ public class HacksawedDamageTypes {
 
     private static RegistryKey<DamageType> register(String name)
     {
-        return RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier(Hacksawed.MOD_ID, name));
+        return RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(Hacksawed.MOD_ID, name));
     }
 
 }
