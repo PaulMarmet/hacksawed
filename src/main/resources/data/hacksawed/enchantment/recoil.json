@@ -7,10 +7,8 @@
     "minecraft:projectile_spawned": [
       {
         "effect": {
-          "type": "minecraft:damage_entity",
-          "damage_type": "hacksawed:bleeding",
-          "min_damage": 1.0,
-          "max_damage": 4.0
+          "type": "hacksawed:recoil",
+          "knockback": -0.3
         }
       }
     ]
@@ -29,5 +27,5 @@
   ],
   "primary_items": "minecraft:crossbow",
   "supported_items": "#minecraft:enchantable/crossbow",
-  "weight": 10
+  "weight": 2
 }

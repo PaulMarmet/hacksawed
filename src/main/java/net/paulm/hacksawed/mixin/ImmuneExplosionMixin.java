@@ -9,9 +9,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Entity.class)
 public class ImmuneExplosionMixin {
 
-	@Inject(method = "isImmuneToExplosion", at = @At(value="RETURN"))
+	@Inject(method = "isImmuneToExplosion", at = @At(value="RETURN"), cancellable = true)
 	public void isImmuneToExplosion(CallbackInfoReturnable<Boolean> cir) {
-
+		cir.setReturnValue(cir.getReturnValue());
 	}
 
 }

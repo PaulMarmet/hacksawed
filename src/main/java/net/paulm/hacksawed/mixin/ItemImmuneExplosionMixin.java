@@ -22,10 +22,10 @@ public abstract class ItemImmuneExplosionMixin extends ImmuneExplosionMixin{
 			cir.setReturnValue(true);
 		} else if (HacksawedConfig.explosionProofItems == HacksawedConfig.SelectionType.SOME) {
 			boolean hasTag = this.getStack().isIn(HacksawedItemTags.EXPLOSION_PROOF);
-			boolean isProtected = EnchantmentHelper.hasAnyEnchantmentsIn(this.getStack(), HacksawedEnchantTags.EXPLOSION_RELATED);
+			boolean isProtected = EnchantmentHelper.hasEnchantments(this.getStack()) && EnchantmentHelper.hasAnyEnchantmentsIn(this.getStack(), HacksawedEnchantTags.EXPLOSION_RELATED);
 			cir.setReturnValue(cir.getReturnValue() || hasTag || (isProtected && HacksawedConfig.explosionProofBlastProt));
 		} else {
-			boolean isProtected = EnchantmentHelper.hasAnyEnchantmentsIn(this.getStack(), HacksawedEnchantTags.EXPLOSION_RELATED);
+			boolean isProtected = EnchantmentHelper.hasEnchantments(this.getStack()) && EnchantmentHelper.hasAnyEnchantmentsIn(this.getStack(), HacksawedEnchantTags.EXPLOSION_RELATED);
 			cir.setReturnValue(cir.getReturnValue() || (isProtected && HacksawedConfig.explosionProofBlastProt));
 		}
 	}

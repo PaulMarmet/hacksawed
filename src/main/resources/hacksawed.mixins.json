@@ -5,7 +5,6 @@
   "mixins": [
     "BlockBreakingMixin",
     "BlockSparkMixin",
-    "CrossbowMixin",
     "EchoShardMixin",
     "EndermanMixin",
     "FarmlandMixin",
