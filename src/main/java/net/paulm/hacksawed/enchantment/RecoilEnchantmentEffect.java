@@ -35,12 +35,9 @@ public record RecoilEnchantmentEffect(EnchantmentLevelBasedValue knockback) impl
                     ((ServerPlayerEntity) owner).networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(owner));
                 }
             } else {
-                Hacksawed.LOGGER.info("The owner is null...");
+                Hacksawed.LOGGER.info("Cannot apply recoil because owner is null!");
             }
-        } else {
-            Hacksawed.LOGGER.info("That's not a projectile entity??? "+user);
         }
-        Hacksawed.LOGGER.info(user+" did something related to recoil, its owner is theoretically "+context.owner());
     }
 
     public MapCodec<RecoilEnchantmentEffect> getCodec() {
