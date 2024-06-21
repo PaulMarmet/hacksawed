@@ -35,7 +35,6 @@ public class HacksawedConfig extends MidnightConfig {
 
     //Other Configs
     @Comment(category = "general") public static Comment OtherConfig1;
-    @Entry(category = "general", min = -16f, max = 16f) public static float recoilAmount = -0.3f;
     @Entry(category = "general") public static boolean untramplableWetFarmland = true;
     @Entry(category = "general") public static boolean echoShardRings = false;
 

@@ -12,24 +12,23 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.paulm.hacksawed.Hacksawed;
-import net.paulm.hacksawed.HacksawedConfig;
 
-public record RecoilEnchantmentEffect(EnchantmentLevelBasedValue knockback) implements EnchantmentEntityEffect {
+public record RecoilEnchantmentEffect(EnchantmentLevelBasedValue value) implements EnchantmentEntityEffect {
     public static final MapCodec<RecoilEnchantmentEffect> CODEC = RecordCodecBuilder.mapCodec((instance) -> {
-        return instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("knockback").forGetter((recoilEnchantmentEffect) -> {
-            return recoilEnchantmentEffect.knockback;
+        return instance.group(EnchantmentLevelBasedValue.CODEC.fieldOf("value").forGetter((recoilEnchantmentEffect) -> {
+            return recoilEnchantmentEffect.value;
         })).apply(instance, RecoilEnchantmentEffect::new);
     });
 
-    public RecoilEnchantmentEffect(EnchantmentLevelBasedValue knockback) {
-        this.knockback = knockback;
+    public RecoilEnchantmentEffect(EnchantmentLevelBasedValue value) {
+        this.value = value;
     }
 
     public void apply(ServerWorld world, int level, EnchantmentEffectContext context, Entity user, Vec3d pos) {
         if(user instanceof ProjectileEntity) {
             Entity owner = ((ProjectileEntity) user).getOwner();
             if (owner != null) {
-                Vec3d iVec = (new Vec3d(owner.getRotationVec(1.0f).toVector3f())).multiply(level * HacksawedConfig.recoilAmount);
+                Vec3d iVec = (new Vec3d(owner.getRotationVec(1.0f).toVector3f())).multiply(-value.getValue(level));
                 owner.addVelocity(iVec.x, iVec.y, iVec.z);
                 if (owner instanceof ServerPlayerEntity) {
                     ((ServerPlayerEntity) owner).networkHandler.sendPacket(new EntityVelocityUpdateS2CPacket(owner));
@@ -44,7 +43,7 @@ public record RecoilEnchantmentEffect(EnchantmentLevelBasedValue knockback) impl
         return CODEC;
     }
 
-    public EnchantmentLevelBasedValue knockback() {
-        return this.knockback;
+    public EnchantmentLevelBasedValue value() {
+        return this.value;
     }
 }
