@@ -14,13 +14,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "net.paulm.hacksawed.Hacksawed"
+          "net.pm.hacksawed.Hacksawed"
 		],
 		"client": [
-          "net.paulm.hacksawed.HacksawedClient"
+          "net.pm.hacksawed.HacksawedClient"
 		],
 		"fabric-datagen": [
-          "net.paulm.hacksawed.HacksawedDataGenerator"
+          "net.pm.hacksawed.HacksawedDataGenerator"
 		]
 	},
 	"mixins": [
