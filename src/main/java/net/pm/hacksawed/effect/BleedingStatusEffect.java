@@ -25,22 +25,22 @@ public class BleedingStatusEffect extends StatusEffect {
     public static void applyEffect(LivingEntity target, LivingEntity attacker, int initBleedDuration, int contBleedDuration) {
         StatusEffectInstance effect;
         //If the target already has the effect, add to the effect
-        if(target.hasStatusEffect(RegistryEntry.of(HacksawedEffects.BLEEDING))) {
-            effect = target.getStatusEffect(RegistryEntry.of(HacksawedEffects.BLEEDING));
+        if(target.hasStatusEffect(HacksawedEffects.BLEEDING)) {
+            effect = target.getStatusEffect(HacksawedEffects.BLEEDING);
             //If the effect's length is above the max point
             if (effect.getDuration() > HacksawedConfig.bleedingAmplificationTime) {
                 //add the time, then cut it in half and increase the effect level by one
-                effect.upgrade(new StatusEffectInstance(RegistryEntry.of(HacksawedEffects.BLEEDING), (effect.getDuration()+contBleedDuration)/2, effect.getAmplifier()+1));
+                effect.upgrade(new StatusEffectInstance(HacksawedEffects.BLEEDING, (effect.getDuration()+contBleedDuration)/2, effect.getAmplifier()+1));
             }
             //Otherwise just add the time
             else {
                 //add the time(divided by the effect power)
-                effect.upgrade(new StatusEffectInstance(RegistryEntry.of(HacksawedEffects.BLEEDING), (effect.getDuration() + (contBleedDuration/ (int) (Math.pow(2, effect.getAmplifier()-1)))), effect.getAmplifier()));
+                effect.upgrade(new StatusEffectInstance(HacksawedEffects.BLEEDING, (effect.getDuration() + (contBleedDuration/ (int) (Math.pow(2, effect.getAmplifier()-1)))), effect.getAmplifier()));
             }
         }
         //Otherwise create a new effect
         else {
-            target.addStatusEffect(new StatusEffectInstance(RegistryEntry.of(HacksawedEffects.BLEEDING), initBleedDuration, 1), attacker);
+            target.addStatusEffect(new StatusEffectInstance(HacksawedEffects.BLEEDING, initBleedDuration, 1), attacker);
         }
     }
 
@@ -49,6 +49,6 @@ public class BleedingStatusEffect extends StatusEffect {
         //Damage and add particle
         entity.damage(entity.getDamageSources().create(HacksawedDamageTypes.BLEEDING), 1.0f);
         //entity.getWorld().addParticle(ParticleTypes.DRIPPING_HONEY, entity.getX(), entity.getY(), entity.getZ(), 0f, 0f, 0f);
-        return false;
+        return true;
     }
 }

@@ -8,6 +8,7 @@
 		"Paul Marmet"
 	],
 	"contact": {
+		"sources": "https://github.com/PaulMarmet/hacksawed"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/hacksawed/icon.png",
@@ -31,8 +32,5 @@
 		"minecraft": "~1.21",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
