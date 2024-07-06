@@ -5,6 +5,7 @@
   "mixins": [
     "BlockBreakingMixin",
     "BlockSparkMixin",
+    "BundleContentMixin",
     "CreeperMixin",
     "EchoShardMixin",
     "EndermanMixin",
