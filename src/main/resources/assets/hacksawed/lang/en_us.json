@@ -74,7 +74,7 @@
   "hacksawed.midnightconfig.moreEndermanSafeItems":"More Enderman Safe Helmets",
   "hacksawed.midnightconfig.moreEndermanSafeItems.tooltip":"By default, this only adds the Dragon Head, however, others can be added using the #hacksawed:enderman_safe tag.",
   "hacksawed.midnightconfig.sneakSweetBerries":"Players Sneak through Sweet Berry Bushes Without Harm",
-  "hacksawed.midnightconfig.creeperSpores":"Creepers Release Spores Instead of breaking blocks",
+  "hacksawed.midnightconfig.creeperSpores":"Creeper Spores",
   "hacksawed.midnightconfig.bundleChanges":"Bundle Changes",
   "hacksawed.midnightconfig.bundleChanges.tooltip":"Makes items stored in bundles (especially unstackables) not take up more space then specified below.",
   "hacksawed.midnightconfig.bundleMaxSpaceCost":"Max Space Cost in Bundle"

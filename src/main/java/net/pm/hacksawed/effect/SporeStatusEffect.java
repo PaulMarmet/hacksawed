@@ -9,6 +9,7 @@ import net.minecraft.util.math.Vec3d;
 import net.pm.hacksawed.damage.HacksawedDamageTypes;
 
 import java.util.Objects;
+import java.util.Random;
 
 
 public class SporeStatusEffect extends StatusEffect {
@@ -21,8 +22,12 @@ public class SporeStatusEffect extends StatusEffect {
     }
 
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
-        entity.damage(entity.getDamageSources().create(HacksawedDamageTypes.SPORED), 1.0F);
+        Random r = new Random();
+        if (r.nextInt(10) == 0) {
+            entity.damage(entity.getDamageSources().create(HacksawedDamageTypes.SPORED), 1.0F);
+        }
         if (entity.getStatusEffect(HacksawedEffects.SPORES) != null && Objects.requireNonNull(entity.getStatusEffect(HacksawedEffects.SPORES)).isDurationBelow(20)) {
+            entity.damage(entity.getDamageSources().create(HacksawedDamageTypes.SPORED), 1.0F);
             spawnCreeperling(entity);
         }
         return true;

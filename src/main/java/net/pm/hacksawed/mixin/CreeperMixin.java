@@ -21,15 +21,17 @@ public class CreeperMixin extends EntityMixin{
 
     @Inject(method = "spawnEffectsCloud()V", at = @At(value = "TAIL"))
     private void sporeCloud(CallbackInfo ci) {
-        AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(getWorld(), getX(), getY(), getZ());
-        areaEffectCloudEntity.setRadius(5.0F);
-        areaEffectCloudEntity.setRadiusOnUse(-0.5F);
-        areaEffectCloudEntity.setWaitTime(10);
-        areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration());
-        areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float)areaEffectCloudEntity.getDuration());
+        if (HacksawedConfig.creeperSpores) {
+            AreaEffectCloudEntity areaEffectCloudEntity = new AreaEffectCloudEntity(getWorld(), getX(), getY(), getZ());
+            areaEffectCloudEntity.setRadius(5.0F);
+            areaEffectCloudEntity.setRadiusOnUse(-0.5F);
+            areaEffectCloudEntity.setWaitTime(10);
+            areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration());
+            areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
 
-        areaEffectCloudEntity.addEffect(new StatusEffectInstance(HacksawedEffects.SPORES, 600));
+            areaEffectCloudEntity.addEffect(new StatusEffectInstance(HacksawedEffects.SPORES, 9600));
 
-        this.getWorld().spawnEntity(areaEffectCloudEntity);
+            this.getWorld().spawnEntity(areaEffectCloudEntity);
+        }
     }
 }
