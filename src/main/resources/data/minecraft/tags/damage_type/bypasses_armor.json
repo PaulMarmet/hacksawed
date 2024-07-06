@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "hacksawed:bleeding"
+    "hacksawed:bleeding",
+    "hacksawed:spored"
   ]
 }

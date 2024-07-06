@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemEntity.class)
-public abstract class ItemImmuneExplosionMixin extends ImmuneExplosionMixin{
+public abstract class ItemImmuneExplosionMixin extends EntityMixin{
 
 	@Shadow public abstract ItemStack getStack();
 

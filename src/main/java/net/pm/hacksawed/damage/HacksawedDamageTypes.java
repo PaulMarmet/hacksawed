@@ -8,6 +8,7 @@ import net.pm.hacksawed.Hacksawed;
 
 public class HacksawedDamageTypes {
     public static final RegistryKey<DamageType> BLEEDING = register("bleeding");
+    public static final RegistryKey<DamageType> SPORED = register("spored");
 
     private static RegistryKey<DamageType> register(String name)
     {

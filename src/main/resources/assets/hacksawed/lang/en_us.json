@@ -15,10 +15,17 @@
   "effect.hacksawed.bleeding": "Bleeding",
   "effect.hacksawed.bleeding.desc": "Deals damage every second, getting twice as fast every level.\nAt a high enough duration, the level increases, and the duration gets shortened accordingly.",
   "effect.hacksawed.bleeding.description": "Deals damage every second, getting twice as fast every level.\nAt a high enough duration, the level increases, and the duration gets shortened accordingly.",
+  "effect.hacksawed.spores": "Creeper Spores",
+  "effect.hacksawed.spores.desc": "You are full of Creeper spores.\nYou might spread them, planting new creepers.",
+  "effect.hacksawed.spores.description": "You are full of Creeper spores.\nYou might spread them, planting new creepers.",
+
 
   "death.attack.bleeding": "%s bled to death",
   "death.attack.bleeding.item": "%s bled to death whilst trying to escape %s and their %s",
   "death.attack.bleeding.player": "%s bled to death whilst trying to escape %s",
+
+  "death.attack.spored": "%s had their health drained by creeper spores",
+  "death.attack.spored.player": "%s had their health drained by creeper spores whilst trying to escape %s",
 
   "entity.hacksawed.dynamite_stick": "Dynamite Stick",
   "entity.hacksawed.impact_dynamite_stick": "Impact Dynamite Stick",
@@ -66,5 +73,6 @@
   "hacksawed.midnightconfig.iceAndSnowDontMelt":"Ice and Snow don't Melt in Cold Biomes",
   "hacksawed.midnightconfig.moreEndermanSafeItems":"More Enderman Safe Helmets",
   "hacksawed.midnightconfig.moreEndermanSafeItems.tooltip":"By default, this only adds the Dragon Head, however, others can be added using the #hacksawed:enderman_safe tag.",
-  "hacksawed.midnightconfig.sneakSweetBerries":"Players Sneak through Sweet Berry Bushes Without Harm"
+  "hacksawed.midnightconfig.sneakSweetBerries":"Players Sneak through Sweet Berry Bushes Without Harm",
+  "hacksawed.midnightconfig.creeperSpores":"Creepers Release Spores Instead of breaking blocks"
 }

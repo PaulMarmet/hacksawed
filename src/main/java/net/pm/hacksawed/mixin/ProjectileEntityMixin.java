@@ -18,8 +18,12 @@ public abstract class ProjectileEntityMixin {
     private static void giveItemAOwner(Args args, @Local LivingEntity owner) {
         ItemStack stack = args.get(5);
         ItemStack shotFrom = args.get(6);
-        stack.setHolder(owner);
-        shotFrom.setHolder(owner);
+        if (owner != null) {
+            if (stack != null)
+                stack.setHolder(owner);
+            if (shotFrom != null)
+                shotFrom.setHolder(owner);
+        }
     }
 
     @Inject(method = "<init>(Lnet/minecraft/entity/EntityType;DDDLnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;Lnet/minecraft/item/ItemStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;setCustomName(Lnet/minecraft/text/Text;)V"))

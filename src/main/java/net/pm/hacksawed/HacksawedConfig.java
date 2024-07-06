@@ -41,5 +41,6 @@ public class HacksawedConfig extends MidnightConfig {
     @Entry(category = "general") public static boolean iceAndSnowDontMelt = true;
     @Entry(category = "general") public static boolean moreEndermanSafeItems = true;
     @Entry(category = "general") public static boolean sneakSweetBerries = true;
+    @Entry(category = "general") public static boolean creeperSpores = true;
 
 }
