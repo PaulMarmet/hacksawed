@@ -29,7 +29,7 @@ public class CreeperMixin extends EntityMixin{
             areaEffectCloudEntity.setDuration(areaEffectCloudEntity.getDuration());
             areaEffectCloudEntity.setRadiusGrowth(-areaEffectCloudEntity.getRadius() / (float) areaEffectCloudEntity.getDuration());
 
-            areaEffectCloudEntity.addEffect(new StatusEffectInstance(HacksawedEffects.SPORES, 9600));
+            areaEffectCloudEntity.addEffect(new StatusEffectInstance(HacksawedEffects.SPORES, 600));
 
             this.getWorld().spawnEntity(areaEffectCloudEntity);
         }

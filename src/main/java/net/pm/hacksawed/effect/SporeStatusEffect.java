@@ -18,12 +18,12 @@ public class SporeStatusEffect extends StatusEffect {
     }
 
     public boolean canApplyUpdateEffect(int duration, int amplifier) {
-        return (duration % 100 == 0 || duration == 1);
+        return (duration % 40 == 0 || duration == 1);
     }
 
     public boolean applyUpdateEffect(LivingEntity entity, int amplifier) {
         Random r = new Random();
-        if (r.nextInt(10) == 0) {
+        if (r.nextInt(4) == 0) {
             entity.damage(entity.getDamageSources().create(HacksawedDamageTypes.SPORED), 1.0F);
         }
         if (entity.getStatusEffect(HacksawedEffects.SPORES) != null && Objects.requireNonNull(entity.getStatusEffect(HacksawedEffects.SPORES)).isDurationBelow(20)) {
