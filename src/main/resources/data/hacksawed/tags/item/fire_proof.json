@@ -46,6 +46,7 @@
     "minecraft:beacon",
     "minecraft:lodestone",
     "minecraft:reinforced_deepslate",
-    "minecraft:respawn_anchor"
+    "minecraft:respawn_anchor",
+    "#minecraft:non_flammable_wood"
   ]
 }
