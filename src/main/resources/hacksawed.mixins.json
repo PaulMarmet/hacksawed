@@ -16,7 +16,6 @@
     "ItemFireproofMixin",
     "ItemImmuneExplosionMixin",
     "ItemUseMixin",
-    "ProjectileEntityMixin",
     "SnowMixin",
     "SweetBerryBushMixin",
     "TorchflowerMixin"

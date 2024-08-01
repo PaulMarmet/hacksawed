@@ -24,13 +24,25 @@ public class DynamiteItem extends Item {
         super(settings);
     }
 
+    public static boolean isLit(ItemStack itemStack) {
+        return Boolean.TRUE.equals(itemStack.get(HacksawedComponents.IS_LIT));
+    }
+
+    public static boolean canAlwaysThrow(ItemStack itemStack) {
+        return Boolean.TRUE.equals(itemStack.get(HacksawedComponents.CAN_ALWAYS_THROW));
+    }
+
+    public static long getExplosionTime(ItemStack itemStack) {
+        return itemStack.get(HacksawedComponents.EXPLOSION_TIME);
+    }
+
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (stack.get(HacksawedComponents.IS_LIT)) {
+        if (isLit(stack)) {
             summonSpark(entity);
 //            if (getFuse(stack) % 20 == 0 && world.isClient()) {
 //                entity.sendMessage(Text.of(getFuse(stack)/20+" seconds left!"));
 //            }
-            if (stack.get(HacksawedComponents.EXPLOSION_TIME) <= world.getTime() && stack.get(HacksawedComponents.EXPLOSION_TIME) != 0) {
+            if (getExplosionTime(stack) <= world.getTime() && getExplosionTime(stack) != 0) {
                 this.explode(stack, world, entity);
             }
         }
@@ -50,7 +62,7 @@ public class DynamiteItem extends Item {
     }
 
     public boolean canThrow(PlayerEntity user, ItemStack itemStack, Hand hand) {
-        if (Boolean.TRUE.equals(itemStack.get(HacksawedComponents.IS_LIT))) {
+        if (isLit(itemStack) || canAlwaysThrow(itemStack)) {
             return true;
         }
         if (hand == Hand.MAIN_HAND) {
@@ -97,7 +109,5 @@ public class DynamiteItem extends Item {
         double f = box.minZ + r3;
         entity.getWorld().addParticle(HacksawedParticles.SPARK, d, e, f, (r.nextFloat()-0.5)*sparkSpread, (r.nextFloat()-0.5)*sparkSpread, (r.nextFloat()-0.5)*sparkSpread);
     }
-
-    //Not really a better place to place this
 
 }

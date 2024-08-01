@@ -4,7 +4,6 @@ import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import net.pm.hacksawed.effect.HacksawedEffects;
-import net.pm.hacksawed.enchantment.HacksawedEnchantments;
 import net.pm.hacksawed.entity.HacksawedEntities;
 import net.pm.hacksawed.item.HacksawedItemGroups;
 import net.pm.hacksawed.item.HacksawedItemTags;
@@ -25,7 +24,6 @@ public class Hacksawed implements ModInitializer {
 		HacksawedItems.registerModItems();
 		HacksawedEffects.registerModEffects();
 		HacksawedEntities.registerModEntities();
-		HacksawedEnchantments.registerHacksawEnchantments();
 		HacksawedParticles.registerModParticles();
 		HacksawedItemTags.registerModTags();
 		MidnightConfig.init("hacksawed", HacksawedConfig.class);

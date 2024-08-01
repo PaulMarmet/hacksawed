@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "hacksawed:item/auto_light_dynamite_stick"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "lit": 1
+      },
+      "model": "hacksawed:item/auto_light_dynamite_stick_lit"
+    }
+  ]
+}

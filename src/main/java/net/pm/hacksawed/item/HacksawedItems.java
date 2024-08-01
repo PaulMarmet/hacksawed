@@ -15,9 +15,9 @@ public class HacksawedItems {
     //And add the texture
     public static final Item HACKSAW = registerItem("hacksaw", new HacksawItem(1.5f, -2.0f, new Item.Settings()));
 
-    public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new Item.Settings().maxCount(16).component(HacksawedComponents.IS_LIT, false).component(HacksawedComponents.EXPLOSION_TIME, (long) 0)));
-    public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new Item.Settings().maxCount(16).component(HacksawedComponents.EXPLOSION_TIME, (long) 0)));
-    public static final Item AUTO_LIGHT_DYNAMITE_STICK = registerItem("auto_light_dynamite_stick", new AutoLightDynamiteItem(new Item.Settings().maxCount(16).component(HacksawedComponents.IS_LIT, false).component(HacksawedComponents.EXPLOSION_TIME, (long) 0)));
+    public static final Item DYNAMITE_STICK = registerItem("dynamite_stick", new DynamiteItem(new Item.Settings().maxCount(16).component(HacksawedComponents.EXPLOSION_TIME, 0L)));
+    public static final Item IMPACT_DYNAMITE_STICK = registerItem("impact_dynamite_stick", new ImpactDynamiteItem(new Item.Settings().maxCount(16).component(HacksawedComponents.CAN_ALWAYS_THROW, true).component(HacksawedComponents.EXPLOSION_TIME, 0L)));
+    public static final Item AUTO_LIGHT_DYNAMITE_STICK = registerItem("auto_light_dynamite_stick", new DynamiteItem(new Item.Settings().maxCount(16).component(HacksawedComponents.CAN_ALWAYS_THROW, true).component(HacksawedComponents.EXPLOSION_TIME, 0L)));
 
     public static final Item BOUNCY_BALL = registerItem("bouncy_ball", new BouncyBallItem(new Item.Settings().maxCount(8)));
     public static final Item RETURNAL_ORB = registerItem("returnal_orb", new ReturnalOrbItem(new Item.Settings().maxCount(8)));

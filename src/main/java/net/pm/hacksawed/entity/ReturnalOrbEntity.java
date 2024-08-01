@@ -88,9 +88,9 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
             redirect += (this.getVelocity().getY() * posDiffRatio.getY()) < 0 ? 1 : 0;
             redirect += (this.getVelocity().getZ() * posDiffRatio.getZ()) < 0 ? 1 : 0;
             if ((redirect == 3 && ball.distanceTo(owner) >= 5) || (redirect >= 2 && ball.distanceTo(owner) >= 25)) {
-                this.setVelocity(posDiffRatio.multiply(HacksawedConfig.returnalOrbVelocity));
+                this.setVelocity(posDiffRatio.multiply(0.1f));
             } else {
-                this.setVelocity(this.getVelocity().add(posDiffRatio.multiply(HacksawedConfig.returnalOrbVelocity)));
+                this.setVelocity(this.getVelocity().add(posDiffRatio.multiply(0.1f)));
             }
             this.setPosition(this.getPos().add(this.getVelocity()));
         } else {

@@ -9,6 +9,7 @@ import net.minecraft.registry.Registry;
 public class HacksawedComponents {
 
     public static final ComponentType<Boolean> IS_LIT = Registry.register(Registries.DATA_COMPONENT_TYPE, "is_lit", ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).build());
+    public static final ComponentType<Boolean> CAN_ALWAYS_THROW = Registry.register(Registries.DATA_COMPONENT_TYPE, "can_always_throw", ComponentType.<Boolean>builder().codec(Codec.BOOL).packetCodec(PacketCodecs.BOOL).build());
     public static final ComponentType<Long> EXPLOSION_TIME = Registry.register(Registries.DATA_COMPONENT_TYPE, "explosion_time",ComponentType.<Long>builder().codec(Codec.LONG).packetCodec(PacketCodecs.VAR_LONG).build());
 
 

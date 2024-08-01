@@ -9,11 +9,10 @@ public class HacksawedConfig extends MidnightConfig {
     //Bleeding Configs
     @Comment(category = "general") public static Comment bleedingConfig1;
     @Entry(category = "general", min = 0) public static int bleedingAmplificationTime = 800;
-    @Entry(category = "general") public static float waterBleedingChance = 0.5f;
     //Hacksaw Configs
     @Comment(category = "general") public static Comment hacksawConfig1;
     @Entry(category = "general", min = 0) public static int initBleedTime = 40;
-    @Entry(category = "general", min = 0) public static int continuationBleedTime = 45;
+    @Entry(category = "general", min = 0) public static int continuationBleedTime = 60;
 
     //Dynamite & Bouncy Ball Configs
     @Comment(category = "general") public static Comment dynamiteConfig1;
@@ -23,7 +22,6 @@ public class HacksawedConfig extends MidnightConfig {
     @Comment(category = "general") public static Comment bouncyBallConfig1;
     @Entry(category = "general", min = 0f) public static float bouncyBallBounciness = 0.7f;
     @Entry(category = "general", min = 0f) public static float bouncyBallDrag = 0.7f;
-    @Entry(category = "general", min = 0f) public static float returnalOrbVelocity = 0.1f;
     @Entry(category = "general", min = 0f) public static float returnalOrbVelTransfer = 0.4f;
 
     //Item Changes Configs
