@@ -53,7 +53,7 @@ public class DynamiteItem extends Item {
         ItemStack itemStack = user.getStackInHand(hand);
         if (!canThrow(user, itemStack, hand)) {
             if (world.isClient())
-                user.sendMessage(Text.of("You haven't lit the stick! (Hold a flint and steel in other hand)"));
+                user.sendMessage(Text.of("You haven't lit the stick! (Hold a flint and steel in other hand)"), true);
             return TypedActionResult.fail(itemStack);
         }
         user.getItemCooldownManager().set(this, 20);

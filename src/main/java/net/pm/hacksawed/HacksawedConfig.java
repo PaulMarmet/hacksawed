@@ -34,6 +34,7 @@ public class HacksawedConfig extends MidnightConfig {
     //Other Configs
     @Comment(category = "general") public static Comment OtherConfig1;
     @Entry(category = "general") public static boolean untramplableWetFarmland = true;
+    @Entry(category = "general") public static boolean extendWaterRegion = true;
     @Entry(category = "general") public static boolean echoShardRings = false;
     @Entry(category = "general") public static boolean blocksReleaseSparks = true;
     @Entry(category = "general") public static boolean iceAndSnowDontMelt = true;

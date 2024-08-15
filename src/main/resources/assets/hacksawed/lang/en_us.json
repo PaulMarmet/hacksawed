@@ -61,6 +61,7 @@
   "hacksawed.midnightconfig.fireProofFireProt.tooltip":"Makes all items with fire protection immune to fire/lava.\nWhen true, applies regardless of the state of fireproof items.",
   "hacksawed.midnightconfig.OtherConfig1":"Other Changes:",
   "hacksawed.midnightconfig.untramplableWetFarmland":"Wet Farmland cant be Trampled",
+  "hacksawed.midnightconfig.extendWaterRegion":"Farmland can be Hydrated from Water Below",
   "hacksawed.midnightconfig.echoShardRings":"Echo Shards Ring Out",
   "hacksawed.midnightconfig.echoShardRings.tooltip":"When having an echo shard in your inventory,\nthere is a chance they ring out emitting vibrations",
   "hacksawed.midnightconfig.blocksReleaseSparks":"Blocks Release Sparks",

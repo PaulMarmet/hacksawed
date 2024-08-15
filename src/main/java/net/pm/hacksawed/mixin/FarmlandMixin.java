@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.pm.hacksawed.HacksawedConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static net.minecraft.block.FarmlandBlock.MOISTURE;
@@ -18,6 +19,11 @@ public class FarmlandMixin {
         if (state.get(MOISTURE) <= 0 || !HacksawedConfig.untramplableWetFarmland) {
             FarmlandBlock.setToDirt(entity, state, world, pos);
         }
+    }
+
+    @ModifyArg(method = "isWaterNearby(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Z", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/BlockPos;add(III)Lnet/minecraft/util/math/BlockPos;", ordinal = 0), index = 1)
+    private static int extendRegion(int y) {
+        return HacksawedConfig.extendWaterRegion ? -1 : y;
     }
 
 }
