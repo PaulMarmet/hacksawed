@@ -3,6 +3,7 @@ package net.pm.hacksawed;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
+import net.pm.hacksawed.conditions.HacksawedConditions;
 import net.pm.hacksawed.effect.HacksawedEffects;
 import net.pm.hacksawed.entity.HacksawedEntities;
 import net.pm.hacksawed.item.HacksawedItemGroups;
@@ -20,12 +21,14 @@ public class Hacksawed implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		HacksawedItemGroups.registerItemGroups();
+		MidnightConfig.init("hacksawed", HacksawedConfig.class);
+		HacksawedConfig.addToConditions();
+		HacksawedConditions.registerConditions();
 		HacksawedItems.registerModItems();
+		HacksawedItemGroups.registerItemGroups();
 		HacksawedEffects.registerModEffects();
 		HacksawedEntities.registerModEntities();
 		HacksawedParticles.registerModParticles();
 		HacksawedItemTags.registerModTags();
-		MidnightConfig.init("hacksawed", HacksawedConfig.class);
 	}
 }

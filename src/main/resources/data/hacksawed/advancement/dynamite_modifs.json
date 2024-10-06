@@ -29,5 +29,13 @@
       "has_dynamite",
       "has_the_recipe"
     ]
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "dynamite_enabled"
+      ]
+    }
   ]
 }

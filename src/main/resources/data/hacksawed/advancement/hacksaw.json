@@ -28,5 +28,13 @@
       "has_iron",
       "has_the_recipe"
     ]
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "hacksaw_enabled"
+      ]
+    }
   ]
 }

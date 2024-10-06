@@ -10,5 +10,13 @@
   "result": {
     "id": "hacksawed:dynamite_stick",
     "count": 4
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "dynamite_enabled"
+      ]
+    }
+  ]
 }

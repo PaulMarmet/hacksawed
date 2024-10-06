@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "hacksawed:bouncy_ball"
+      "hacksawed:impact_dynamite_stick"
     ]
   },
   "criteria": {
-    "has_slime": {
+    "has_dynamite": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": ["minecraft:slime_ball"]
+            "items": ["hacksawed:dynamite_stick"]
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "hacksawed:bouncy_ball"
+        "recipe": "hacksawed:impact_dynamite_stick"
       }
     }
   },
   "requirements": [
     [
-      "has_slime",
+      "has_dynamite",
       "has_the_recipe"
     ]
   ],
@@ -33,7 +33,8 @@
     {
       "condition": "hacksawed:config_enabled",
       "values": [
-        "orbs_enabled"
+        "dynamite_enabled",
+        "impact_dynamite"
       ]
     }
   ]

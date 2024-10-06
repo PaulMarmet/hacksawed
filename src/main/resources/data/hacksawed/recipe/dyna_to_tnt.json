@@ -14,5 +14,13 @@
   "result": {
     "id": "minecraft:tnt",
     "count": 1
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "dynamite_enabled"
+      ]
+    }
+  ]
 }

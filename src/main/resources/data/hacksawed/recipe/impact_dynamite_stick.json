@@ -1,23 +1,25 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "equipment",
+  "category": "misc",
+  "group": "dynamites",
   "ingredients": [
     {
-      "item": "minecraft:slime_ball"
+      "item": "hacksawed:dynamite_stick"
     },
     {
-      "tag": "minecraft:buttons"
+      "item": "minecraft:stone_button"
     }
   ],
   "result": {
-    "id": "hacksawed:bouncy_ball",
+    "id": "hacksawed:impact_dynamite_stick",
     "count": 1
   },
   "fabric:load_conditions": [
     {
       "condition": "hacksawed:config_enabled",
       "values": [
-        "orbs_enabled"
+        "dynamite_enabled",
+        "impact_dynamite"
       ]
     }
   ]

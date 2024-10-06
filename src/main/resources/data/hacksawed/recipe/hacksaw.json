@@ -20,5 +20,13 @@
   "result": {
     "id": "hacksawed:hacksaw",
     "count": 1
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "hacksaw_enabled"
+      ]
+    }
+  ]
 }

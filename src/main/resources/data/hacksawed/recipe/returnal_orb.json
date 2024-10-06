@@ -23,5 +23,13 @@
   "result": {
     "id": "hacksawed:returnal_orb",
     "count": 1
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "orbs_enabled"
+      ]
+    }
+  ]
 }

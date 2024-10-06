@@ -28,5 +28,13 @@
       "has_ball",
       "has_the_recipe"
     ]
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "orbs_enabled"
+      ]
+    }
   ]
 }

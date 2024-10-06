@@ -78,9 +78,9 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
     }
 
     public void moveTowardsOwner() {
-        Vec3d owner = Objects.requireNonNull(this.getOwner()).getPos();
+        Vec3d owner = Objects.requireNonNull(this.getOwner()).getEyePos();
         if (owner != null) {
-            Vec3d ball = this.getPos();
+            Vec3d ball = this.getEyePos();
             Vec3d posDiffRatio = new Vec3d(owner.getX() - ball.getX(), owner.getY() - ball.getY(), owner.getZ() - ball.getZ()).normalize();
             //Make redirect
             int redirect = 0;
@@ -96,6 +96,21 @@ public class ReturnalOrbEntity extends BouncyBallEntity {
         } else {
             this.returnToItem();
         }
+    }
+
+    public void moveTowardsOwnerv2() {
+        Vec3d vec3d = Objects.requireNonNull(this.getOwner()).getEyePos().subtract(this.getPos());
+        int i = 2;
+        this.setPos(this.getX() + (vec3d.x * 0.015 * (double)i), this.getY() + (vec3d.y * 0.015 * (double)i), this.getZ() + (vec3d.z * 0.015 * (double)i));
+        if (this.getWorld().isClient) {
+            this.lastRenderY = this.getY();
+        }
+
+        double d = 0.05 * (double)i;
+        this.setVelocity(this.getVelocity().multiply(0.95).add(vec3d.normalize().multiply(d)));
+//        if (this.returnTimer == 0) {
+//            this.playSound(SoundEvents.ITEM_TRIDENT_RETURN, 10.0F, 1.0F);
+//        }
     }
 
     @Override
