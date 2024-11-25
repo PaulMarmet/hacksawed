@@ -10,7 +10,7 @@
 	"contact": {
 		"sources": "https://github.com/PaulMarmet/hacksawed"
 	},
-	"license": "CC0-1.0",
+	"license": "ARR",
 	"icon": "assets/hacksawed/icon.png",
 	"environment": "*",
 	"entrypoints": {

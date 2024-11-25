@@ -3,25 +3,6 @@
   "package": "net.pm.hacksawed.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractBlockMixin",
-    "BlockBreakingMixin",
-    "BlocksMixin",
-    "BlockMixin",
-    "BundleContentMixin",
-    "CaveVineBodyBlockMixin",
-    "EchoShardMixin",
-    "EndermanMixin",
-    "EntityMixin",
-    "FarmlandMixin",
-    "FireChargeMixin",
-    "GrateBlockMixin",
-    "HuskMixin",
-    "IceMixin",
-    "ItemFireproofMixin",
-    "ItemImmuneExplosionMixin",
-    "ItemUseMixin",
-    "SnowMixin",
-    "SweetBerryBushMixin"
   ],
   "injectors": {
     "defaultRequire": 1
