@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hacksawed:block/glowstone_dust_block"
+  }
+}

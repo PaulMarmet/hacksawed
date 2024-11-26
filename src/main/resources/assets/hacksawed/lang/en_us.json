@@ -5,6 +5,9 @@
   "item.hacksawed.auto_light_dynamite_stick": "Auto Light Dynamite Stick",
   "item.hacksawed.bouncy_ball": "Bouncy Ball",
   "item.hacksawed.returnal_orb": "Returnal Orb",
+  "item.hacksawed.glowstone_dust_block": "Glowstone Dust Block",
+
+  "block.hacksawed.glowstone_dust_block": "Glowstone Dust Block",
 
   "tag.item.hacksawed.enderman_safe": "Enderman Safe",
   "tag.item.hacksawed.explosion_proof": "Explosion Proof",

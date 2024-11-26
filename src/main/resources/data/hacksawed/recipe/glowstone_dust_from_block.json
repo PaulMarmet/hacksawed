@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "G"
+  ],
+  "key": {
+    "G": {
+      "item": "hacksawed:glowstone_dust_block"
+    }
+  },
+  "result": {
+    "id": "minecraft:glowstone_dust",
+    "count": 9
+  }
+}
