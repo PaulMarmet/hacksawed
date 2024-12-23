@@ -14,5 +14,13 @@
   "result": {
     "id": "hacksawed:glowstone_dust_block",
     "count": 1
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "compression_glowstone_dust"
+      ]
+    }
+  ]
 }

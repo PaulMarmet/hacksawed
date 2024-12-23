@@ -56,5 +56,8 @@
   "hacksawed.midnightconfig.orbsEnabled.tooltip":"Toggles the recipes for the orbs, requires reload.",
   "hacksawed.midnightconfig.bouncyBallBounciness":"Bouncy Ball Bounciness",
   "hacksawed.midnightconfig.bouncyBallDrag":"Bouncy Ball Drag",
-  "hacksawed.midnightconfig.returnalOrbVelTransfer":"Returnal Orb Velocity Transfer"
+  "hacksawed.midnightconfig.returnalOrbVelTransfer":"Returnal Orb Velocity Transfer",
+
+  "hacksawed.midnightconfig.compressionConfig1":"Compression Configs:",
+  "hacksawed.midnightconfig.glowstoneDustBlock":"Glowstone Dust Block"
 }

@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.pm.hacksawed.Hacksawed;
 import net.pm.hacksawed.HacksawedConfig;
+import net.pm.hacksawed.block.HacksawedBlocks;
 
 public class HacksawedItemGroups {
     public static final ItemGroup HACKSAW_GROUP = Registry.register(Registries.ITEM_GROUP, Identifier.of(Hacksawed.MOD_ID, "hacksawed"), FabricItemGroup.builder().displayName(Text.translatable("itemgroup.hacksawed")).icon(() -> new ItemStack((HacksawedItems.HACKSAW))).entries(((displayContext, entries) -> {
@@ -21,6 +22,9 @@ public class HacksawedItemGroups {
         if (HacksawedConfig.orbsEnabled) {
             entries.add(HacksawedItems.BOUNCY_BALL);
             entries.add(HacksawedItems.RETURNAL_ORB);
+        }
+        if (HacksawedConfig.glowstoneDustBlock) {
+            entries.add(HacksawedBlocks.GLOWSTONE_DUST_BLOCK.asItem());
         }
 
     })).build());
