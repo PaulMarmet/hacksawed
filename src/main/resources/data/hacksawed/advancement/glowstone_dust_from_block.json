@@ -28,5 +28,13 @@
       "has_glowstone",
       "has_the_recipe"
     ]
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "compression_glowstone_dust"
+      ]
+    }
   ]
 }

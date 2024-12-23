@@ -12,5 +12,13 @@
   "result": {
     "id": "minecraft:glowstone_dust",
     "count": 9
-  }
+  },
+  "fabric:load_conditions": [
+    {
+      "condition": "hacksawed:config_enabled",
+      "values": [
+        "compression_glowstone_dust"
+      ]
+    }
+  ]
 }
